@@ -23,3 +23,8 @@ There are useful extensions in Visual Studio Code that are very useful for devel
     ```
 
 ### Running the Project
+1. Activate a local server for the website.
+    ```bash
+    npm run dev
+    ```
+2. To stop the server, enter `q` or `CTRL-C`.

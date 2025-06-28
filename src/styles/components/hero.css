@@ -1,0 +1,38 @@
+@import "tailwindcss";
+
+
+.hero-section {
+  @apply min-h-auto flex flex-col justify-center items-center pt-20 px-4;
+  @apply bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 text-gray-900;
+  background: linear-gradient(45deg, #e9d5ff, #c4b5fd, #a78bfa),
+              linear-gradient(-45deg, #ddd6fe, #c4b5fd, #a78bfa);
+  background-blend-mode: multiply;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-section {
+    @apply text-gray-200;
+    background: linear-gradient(45deg, #0f172a, #581c87, #7c3aed),
+                linear-gradient(-45deg, #1e1b4b, #581c87, #6d28d9);
+    background-blend-mode: multiply;
+  }
+}
+
+.hero-title {
+  @apply text-4xl md:text-6xl font-bold mb-4 text-center;
+  text-shadow: 0 0 10px rgba(234, 0, 255, 0.5);
+}
+
+.hero-description {
+  @apply text-lg md:text-xl mb-8 text-center max-w-2xl;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

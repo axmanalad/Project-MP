@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+.game-card {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-lg;
+  @apply border border-gray-200 dark:border-gray-700;
+}
+
+.game-image-container {
+  @apply bg-gray-100 dark:bg-gray-700 flex items-center justify-center;
+}
+
+.game-image {
+  @apply max-w-full max-h-full object-contain p-4;
+}
+
+.game-info {
+  @apply p-4;
+}
+
+.game-title {
+  @apply text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2;
+}
+
+.game-release-date {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}
+
+.favorite-button {
+  @apply absolute top-2 right-2 bg-white dark:bg-gray-900 rounded-full px-3 py-1.5 shadow-md hover:bg-gray-200 dark:hover:bg-gray-700;
+  @apply opacity-0 transition-none;
+}
+
+.game-card:hover .favorite-button {
+  @apply opacity-100;
+}
+
+

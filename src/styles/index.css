@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 :root {
-  @apply bg-gradient-to-b from-purple-200 to-purple-400 text-gray-900 pt-12;
+  @apply bg-gradient-to-b from-purple-200 to-purple-400 text-gray-900;
 }
 
 @media (prefers-color-scheme: dark) {

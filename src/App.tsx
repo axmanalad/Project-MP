@@ -7,9 +7,9 @@ import Navbar from './components/Navbar';
 function App() {
   return (
     <>
-      <div className="flex">
+      <header className="flex">
         <Navbar />
-      </div>
+      </header>
       <main className="main-content">
         <Routes>
           <Route path="/" element={<Home />} />

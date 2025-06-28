@@ -1,7 +1,8 @@
 @import "tailwindcss";
 
 .navbar {
-  @apply h-15 w-screen flex flex-row justify-between items-center fixed top-0 left-0 p-8 bg-white text-gray-950 dark:bg-gray-950 dark:text-white;
+  @apply h-15 w-screen flex flex-row justify-between items-center fixed top-0 left-0 p-8 z-50;
+  @apply bg-white text-gray-950 dark:bg-gray-950 dark:text-white;
 }
 
 /* Animate the navbar when navbar loads */

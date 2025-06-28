@@ -1,4 +1,4 @@
-import "../styles/MyGames.css";
+import "../styles/pages/my-games.css";
 
 function MyGames() {
   return <div className="games-empty">

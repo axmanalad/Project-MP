@@ -4,11 +4,13 @@ import "../styles/Navbar.css";
 function Navbar() {
   return <nav className="navbar">
     <div className="navbar-brand">
-      <Link to="/">Game App</Link>
+      <Link to="/">MaiPon</Link>
     </div>
     <div className="navbar-links">
       <Link to="/" className="nav-link">Home</Link>
       <Link to="/my-games" className="nav-link">My Games</Link>
+      <Link to="/" className="nav-link">Settings</Link>
+      <Link to="/" className="nav-link login-button">Login</Link>
     </div>
   </nav>
 }

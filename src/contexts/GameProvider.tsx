@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import type { Game } from "../types";
 import { GameContext } from "./GameContext";
 import type { GameContextType } from "../types/game";
@@ -9,17 +9,22 @@ interface GameProviderProps {
 
 export const GameProvider = ({ children }: GameProviderProps) => {
   const [myGames, setMyGames] = useState<Game[]>([]);
+  const isInitialized = useRef(false);
 
   useEffect(() => {
     // Fetch games from local storage
     const storedGames = localStorage.getItem('myGames');
-    if (storedGames)
+    if (storedGames) {
       setMyGames(JSON.parse(storedGames) as Game[]);
+    }
+    isInitialized.current = true;
   }, []);
 
   useEffect(() => {
     // Saves myGames to local storage whenever it changes
-    localStorage.setItem('myGames', JSON.stringify(myGames));
+    if (isInitialized.current) {
+      localStorage.setItem('myGames', JSON.stringify(myGames));
+    }
   }, [myGames]);
 
   // Add a game to myGames

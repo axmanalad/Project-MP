@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+.parent-container {
+  @apply flex flex-col items-center justify-center min-h-screen;
+}
+
+.games-empty {
+  @apply px-10 py-10 rounded-2xl font-bold text-lg text-center shadow-lg;
+  @apply bg-gray-50 dark:bg-gray-900
+}
+
+.games-empty h2 {
+  @apply text-3xl font-bold text-red-900 dark:text-red-400 mb-4;
+}
+
+.games-empty p {
+  @apply text-gray-600 dark:text-gray-400;
+}

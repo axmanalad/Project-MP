@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  @apply min-h-screen;
   @apply bg-gradient-to-b from-purple-200 to-purple-400 text-gray-900;
 }
 

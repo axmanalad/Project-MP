@@ -1,25 +1,21 @@
 import "../styles/components/game-card.css";
-
-interface Game {
-  id: number;
-  title: string;
-  releaseDate: string;
-  url: string;
-}
-
-interface GameCardProps {
-  game: Game;
-}
+import type { GameCardProps } from "../types";
+import { convertDate } from "../utilities/convertDate";
 
 function GameCard({ game }: GameCardProps) {
-  const handleFavoriteClick = () => {
+  const handleFavoriteClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent card click when clicking favorite
     alert(`You clicked on favorite for ${game.title}`);
   }
 
+  const handleCardClick = () => {
+    window.open(game.websiteUrl, '_blank');
+  }
+
   return (
-    <div className="game-card">
+    <div className="game-card cursor-pointer" onClick={handleCardClick}>
       <div className="game-image-container">
-        <img src={game.url} alt={game.title} className="game-image" />
+        <img src={game.imageUrl} alt={game.title} className="game-image" />
         <div className="game-overlay">
           <button type="button" className="favorite-button" onClick={handleFavoriteClick}>
             ♥
@@ -28,7 +24,8 @@ function GameCard({ game }: GameCardProps) {
       </div>
       <div className="game-info">
         <h3 className="game-title">{game.title}</h3>
-        <p className="game-release-date">Released: {game.releaseDate}</p>
+        <p className="game-author">{game.author}</p>
+        <p className="game-release-date">Released: {convertDate(game.releaseDate)}</p>
       </div>
     </div>
   );

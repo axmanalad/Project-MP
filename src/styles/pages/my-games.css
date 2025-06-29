@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .parent-container {
-  @apply flex flex-col items-center justify-center min-h-screen;
+  @apply flex flex-col items-center justify-center min-h-screen mt-10;
 }
 
 .games-empty {
@@ -15,4 +15,12 @@
 
 .games-empty p {
   @apply text-gray-600 dark:text-gray-400;
+}
+
+.my-games-title {
+  @apply text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200;
+}
+
+.games-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6;
 }

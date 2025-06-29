@@ -1,11 +1,20 @@
 import "../styles/components/game-card.css";
 import type { GameCardProps } from "../types";
 import { convertDate } from "../utilities/convertDate";
+import { useGameContext } from "../hooks/useGameContext";
 
 function GameCard({ game }: GameCardProps) {
+  const { isMyGame, addToMyGames, removeFromMyGames } = useGameContext();
+  const favorite = isMyGame(game.id);
+  
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click when clicking favorite
-    alert(`You clicked on favorite for ${game.title}`);
+    e.preventDefault();
+    if (favorite) {
+      removeFromMyGames(game.id);
+    } else {
+      addToMyGames(game);
+    }
   }
 
   const handleCardClick = () => {
@@ -17,7 +26,7 @@ function GameCard({ game }: GameCardProps) {
       <div className="game-image-container">
         <img src={game.imageUrl} alt={game.title} className="game-image" />
         <div className="game-overlay">
-          <button type="button" className="favorite-button" onClick={handleFavoriteClick}>
+          <button type="button" className={`favorite-button ${favorite ? 'active' : ''}`} onClick={handleFavoriteClick}>
             ♥
           </button>
         </div>

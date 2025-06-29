@@ -3,10 +3,11 @@ import './styles/App.css'
 import Home from './pages/Home';
 import MyGames from './pages/MyGames';
 import Navbar from './components/Navbar';
+import { GameProvider } from './contexts/GameProvider';
 
 function App() {
   return (
-    <>
+    <GameProvider>
       <header className="flex">
         <Navbar />
       </header>
@@ -16,7 +17,7 @@ function App() {
           <Route path="/my-games" element={<MyGames />} />
         </Routes>
       </main>
-    </>
+    </GameProvider>
   );
 }
 

@@ -1,16 +1,21 @@
 import "../styles/pages/my-games.css";
 import { useGameContext } from "../hooks/useGameContext";
+import { centerGrid } from "../utils/centerGrid";
 import GameCard from "../components/GameCard";
 
 function MyGames() {
   const { myGames } = useGameContext();
+
+  const getGridClass = (count: number) => {
+    return centerGrid(count);
+  };
 
   if (myGames.length > 0) {
     return (
       <div className="my-games">
         <div className="parent-container">
           <h2 className="my-games-title">My Games</h2>
-          <div className="games-grid">
+          <div className={`grid gap-6 ${getGridClass(myGames.length)}`}>
             {myGames.map((game) => (
               <GameCard key={game.id} game={game} />
             ))}

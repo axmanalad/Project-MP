@@ -1,11 +1,15 @@
 import "../styles/components/game-card.css";
 import type { GameCardProps } from "../types";
-import { convertDate } from "../utilities/convertDate";
+import { convertDate } from "../utils/convertDate";
 import { useGameContext } from "../hooks/useGameContext";
+import { useLocation } from "react-router-dom";
 
 function GameCard({ game }: GameCardProps) {
   const { isMyGame, addToMyGames, removeFromMyGames } = useGameContext();
+  const location = useLocation();
   const favorite = isMyGame(game.id);
+
+  const isMyGames = location.pathname === '/my-games';
   
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click when clicking favorite
@@ -18,7 +22,12 @@ function GameCard({ game }: GameCardProps) {
   }
 
   const handleCardClick = () => {
-    window.open(game.websiteUrl, '_blank');
+    if (isMyGames) {
+      return; // Future: Handle navigation to game details
+    } else {
+      window.open(game.websiteUrl, '_blank');  
+    }
+    
   }
 
   return (

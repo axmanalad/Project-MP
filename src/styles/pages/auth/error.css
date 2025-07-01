@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.form-error-message {
+  @apply text-red-500 text-sm mt-1;
+}
+
+.form-group input.form-input-error {
+  @apply border-red-500 focus:ring-red-500 focus:border-red-500;
+}

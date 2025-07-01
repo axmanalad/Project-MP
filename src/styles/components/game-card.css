@@ -29,13 +29,13 @@
   @apply text-sm text-gray-600 dark:text-gray-400;
 }
 
-.favorite-button {
+.game-card .favorite-button {
   @apply absolute top-2 right-2 object-center bg-white dark:bg-gray-900 rounded-full px-2 text-3xl border shadow-md hover:bg-gray-200 dark:hover:bg-gray-800;
   @apply opacity-0 transition-none;
   @apply border-transparent;
 }
 
-.favorite-button.active {
+.game-card .favorite-button.active {
   @apply text-red-500;
   @apply border-red-500;
 }

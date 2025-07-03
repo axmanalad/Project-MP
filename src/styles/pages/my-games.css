@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 .parent-container {
-  @apply flex flex-col items-center justify-center min-h-screen mt-10;
+  @apply flex flex-col items-center justify-center min-h-screen mt-6;
 }
 
 .games-empty {
@@ -18,9 +18,66 @@
 }
 
 .my-games-title {
-  @apply text-2xl font-bold mb-8 text-gray-800 dark:text-gray-200;
+  @apply text-gray-800 dark:text-gray-200;
+}
+
+.dashboard-header {
+  @apply mb-8 self-start p-6;
+}
+
+.dashboard-subtitle {
+  @apply text-gray-600 dark:text-gray-400;
 }
 
 .games-grid {
   @apply grid gap-6;
+}
+
+.quick-stats {
+  @apply w-full max-w-4xl px-4 sm:px-6 lg:px-8 mb-8;
+}
+
+.quick-stats-title {
+  @apply text-2xl font-bold text-blue-800 dark:text-blue-300 mb-6 text-center;
+}
+
+.quick-stats-grid {
+  @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4 sm:gap-6;
+  @apply bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg;
+  @apply border border-gray-200 dark:border-gray-700;
+}
+
+.games-section {
+  @apply mt-10 px-4 sm:px-6 lg:px-8;
+}
+
+.games-section-title {
+  @apply text-2xl text-yellow-600 dark:text-yellow-500 mb-4 text-center font-bold;
+}
+
+.add-game-section {
+  @apply mt-10 px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center;
+}
+
+/* Game Link Container */
+.game-link {
+  @apply block;
+}
+
+/* Quick Stats for Individual Games */
+.quick-stats-overlay {
+  @apply mt-3 bg-gray-50 dark:bg-gray-800 rounded-lg border-t-0 border border-gray-200 dark:border-gray-700;
+  @apply grid grid-cols-2 gap-3 p-3;
+}
+
+.quick-stats-overlay .stat-card {
+  @apply p-2 bg-white dark:bg-gray-700 rounded shadow-sm;
+}
+
+.quick-stats-overlay .stat-card .stat-title {
+  @apply text-xs mb-1;
+}
+
+.quick-stats-overlay .stat-card .stat-value {
+  @apply text-lg;
 }

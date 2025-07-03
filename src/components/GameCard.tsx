@@ -10,6 +10,7 @@ function GameCard({ game }: GameCardProps) {
   const favorite = isMyGame(game.id);
 
   const isMyGames = location.pathname === '/my-games';
+  const isNotHome = location.pathname !== '/';
   
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click when clicking favorite
@@ -35,9 +36,10 @@ function GameCard({ game }: GameCardProps) {
       <div className="game-image-container">
         <img src={game.imageUrl} alt={game.title} className="game-image" />
         <div className="game-overlay">
-          <button type="button" className={`favorite-button ${favorite ? 'active' : ''}`} onClick={handleFavoriteClick}>
+          {isNotHome &&(
+            <button type="button" className={`favorite-button ${favorite ? 'active' : ''}`} onClick={handleFavoriteClick}>
             ♥
-          </button>
+          </button>)}
         </div>
       </div>
       <div className="game-info">

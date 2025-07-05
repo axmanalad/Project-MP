@@ -4,7 +4,9 @@ export interface Game {
   author: string;
   releaseDate: string;
   imageUrl: string;
+  bgImageURL: string;
   websiteUrl: string;
+  isAvailable: boolean;
 }
 
 export interface GameCardProps {

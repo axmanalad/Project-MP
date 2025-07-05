@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+.tab-navigation {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg;
+  @apply overflow-hidden;
+}
+
+.tab-list {
+  @apply flex overflow-x-auto;
+  @apply bg-purple-50 dark:bg-gray-900;
+}
+
+.tab-button {
+  @apply flex-shrink-0 px-6 py-4 text-sm font-medium;
+  @apply transition-all duration-200;
+  @apply border-b-2 border-transparent;
+  @apply whitespace-nowrap;
+  @apply relative;
+  margin: 0;
+  /* Remove focus outline and any selection borders */
+  outline: none !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.tab-button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+.tab-button:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.tab-button:first-child {
+  @apply rounded-tl-xl;
+}
+
+.tab-button:last-child {
+  @apply rounded-tr-xl;
+}
+
+/* Override any default button rounding */
+.tab-button {
+  border-radius: 0 !important;
+}
+
+/* Only round the corners for first and last buttons */
+.tab-button:first-child {
+  border-top-left-radius: 0.75rem !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.tab-button:last-child {
+  border-top-right-radius: 0.75rem !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.tab-button:hover {
+  @apply bg-purple-100 dark:bg-gray-700;
+}
+
+.tab-button.active {
+  @apply text-purple-600 dark:text-purple-400;
+  @apply bg-white dark:bg-gray-800;
+  @apply shadow-sm;
+  /* Add bottom border back for active state */
+  border-bottom: 2px solid rgb(147 51 234) !important; /* purple-600 */
+}
+
+.dark .tab-button.active {
+  border-bottom-color: rgb(196 181 253) !important; /* purple-400 */
+}
+
+.tab-button.available {
+  @apply text-gray-700 dark:text-gray-300;
+  @apply cursor-pointer;
+}
+
+.tab-button.unavailable {
+  @apply text-gray-400 dark:text-black;
+  @apply cursor-not-allowed;
+  @apply opacity-60;
+}
+
+.tab-button.unavailable:hover {
+  @apply bg-red-800;
+}

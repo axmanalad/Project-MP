@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+.game-header {
+  @apply relative overflow-hidden;
+  @apply bg-gradient-to-r from-purple-600 to-purple-800;
+  @apply shadow-lg mb-6;
+}
+
+.game-banner-bg {
+  @apply absolute inset-0 opacity-70;
+  @apply bg-cover bg-no-repeat;
+  @apply min-w-full;
+  background-position: center 25%; 
+}
+
+.game-header-content {
+  @apply relative z-10 min-w-screen;
+  @apply p-6 sm:p-8 lg:p-30;
+  @apply bg-gradient-to-b from-black/30 to-transparent;
+}
+
+.game-header-info .game-title {
+  @apply text-4xl font-bold text-white mb-2;
+  @apply drop-shadow-lg drop-shadow-black/50;
+}
+
+.game-header-info .game-subtitle {
+  @apply text-xl text-purple-100 mb-4;
+}
+
+.game-stats {
+  @apply flex flex-wrap gap-4 text-white/90;
+}
+
+.game-stat {
+  @apply bg-white/20 backdrop-blur-sm rounded-lg px-4 py-2;
+  @apply border border-white/20;
+}
+
+.game-stat-label {
+  @apply text-sm opacity-80;
+}
+
+.game-stat-value {
+  @apply text-lg font-semibold;
+}
+
+/* Game Header Action Buttons */
+.game-header-actions {
+  @apply flex gap-3 mt-4 sm:mt-0;
+}
+
+.game-header-btn {
+  @apply px-4 py-2 text-sm font-medium;
+  @apply bg-white/10 hover:bg-white/20;
+  @apply border border-white/30 hover:border-white/50;
+  @apply text-white backdrop-blur-sm;
+  @apply rounded-lg transition-all duration-200;
+  @apply shadow-lg hover:shadow-xl;
+  @apply hover:scale-105 active:scale-95;
+}
+
+.game-header-btn:focus {
+  @apply outline-none ring-2 ring-white/50;
+}
+
+.game-header-btn.primary {
+  @apply bg-purple-600/80 hover:bg-purple-700/80;
+  @apply border-purple-500/50 hover:border-purple-400/50;
+}

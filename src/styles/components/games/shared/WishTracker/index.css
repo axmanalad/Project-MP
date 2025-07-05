@@ -1,0 +1,140 @@
+@import "tailwindcss";
+
+.wish-tracker {
+  @apply space-y-6;
+}
+
+.wish-tracker-header {
+  @apply flex flex-col sm:flex-row sm:items-center sm:justify-between;
+  @apply gap-4 mb-6;
+}
+
+.wish-tracker-header h2 {
+  @apply text-3xl font-bold text-gray-800 dark:text-gray-200;
+}
+
+.wish-tracker-header .btn {
+  @apply px-6 py-3 text-sm;
+  @apply self-start sm:self-auto;
+}
+
+/* Pity Counter Cards */
+.pity-counters {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8;
+}
+
+.pity-card {
+  @apply bg-gradient-to-t from-purple-50 to-purple-100;
+  @apply dark:from-gray-800 dark:to-gray-700;
+  @apply rounded-xl p-6 shadow-lg;
+  @apply border border-purple-200 dark:border-purple-800;
+  @apply transition-transform duration-200 hover:scale-105;
+}
+
+.pity-card h3 {
+  @apply text-lg font-semibold text-gray-800 dark:text-gray-200 mb-3;
+}
+
+.pity-count {
+  @apply text-3xl font-bold text-purple-600 dark:text-purple-400 mb-3;
+}
+
+.pity-progress {
+  @apply w-full bg-gray-200 dark:bg-gray-600 rounded-full h-3;
+  @apply overflow-hidden;
+}
+
+.progress-bar {
+  @apply h-full bg-gradient-to-r from-purple-500 to-purple-600;
+  @apply transition-all duration-500 ease-out;
+  @apply rounded-full;
+}
+
+/* Special styling for different pity levels */
+.pity-card:has(.progress-bar[style*="width: 50%"]) .progress-bar,
+.pity-card:has(.progress-bar[style*="width: 5"]) .progress-bar {
+  @apply from-yellow-400 to-yellow-500;
+}
+
+.pity-card:has(.progress-bar[style*="width: 7"]) .progress-bar,
+.pity-card:has(.progress-bar[style*="width: 8"]) .progress-bar,
+.pity-card:has(.progress-bar[style*="width: 9"]) .progress-bar {
+  @apply from-red-400 to-red-500;
+}
+
+/* Recent Wishes Section */
+.recent-wishes {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6;
+  @apply border border-purple-200 dark:border-purple-800;
+}
+
+.recent-wishes h3 {
+  @apply text-2xl font-bold text-gray-800 dark:text-gray-200 mb-6;
+}
+
+.empty-state {
+  @apply text-center py-12;
+}
+
+.empty-state p {
+  @apply text-gray-500 dark:text-gray-400 text-lg;
+  @apply mb-4;
+}
+
+.wish-history {
+  @apply space-y-4;
+}
+
+/* Wish item styling (for when history is implemented) */
+.wish-item {
+  @apply flex items-center justify-between;
+  @apply p-4 bg-gray-50 dark:bg-gray-700 rounded-lg;
+  @apply border border-gray-200 dark:border-gray-600;
+}
+
+.wish-item-info {
+  @apply flex items-center space-x-4;
+}
+
+.wish-item-rarity {
+  @apply w-4 h-4 rounded-full;
+}
+
+.wish-item-rarity.rarity-3 {
+  @apply bg-blue-500;
+}
+
+.wish-item-rarity.rarity-4 {
+  @apply bg-purple-500;
+}
+
+.wish-item-rarity.rarity-5 {
+  @apply bg-yellow-500;
+}
+
+.wish-item-name {
+  @apply font-semibold text-gray-800 dark:text-gray-200;
+}
+
+.wish-item-type {
+  @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+.wish-item-date {
+  @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .pity-counters {
+    @apply grid-cols-1;
+  }
+  
+  .pity-card {
+    @apply p-4;
+  }
+  
+  .pity-count {
+    @apply text-2xl;
+  }
+}

@@ -5,9 +5,19 @@ import GameCard from "../components/GameCard";
 import { gameQuickStats, quickStats } from "../data/quickStats";
 import StatCard from "../components/StatCard";
 import { Link } from "react-router";
+import { useMemo } from "react";
 
 function MyGames() {
   const { myGames } = useGameContext();
+
+  const dynamicQuickStats = useMemo(() => {
+    return quickStats.map((stat) => {
+      if (stat.title === "Total Games") {
+        return { ...stat, value: myGames.length };
+      }
+      return stat;
+    });
+  }, [myGames.length]);
 
   if (myGames.length > 0) {
     return (
@@ -23,7 +33,7 @@ function MyGames() {
           <div className="quick-stats">
             <h3 className="quick-stats-title">Quick Stats</h3>
             <div className="quick-stats-grid">
-              {quickStats.map((stat) => (
+              {dynamicQuickStats.map((stat) => (
                 <StatCard key={stat.title} title={stat.title} value={stat.value} />
               ))}
             </div>

@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+.coming-soon-dashboard {
+  @apply min-h-96 flex items-center justify-center;
+}
+
+.coming-soon-content {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 md:p-12;
+  @apply border border-purple-200 dark:border-purple-800;
+  @apply text-center max-w-2xl mx-auto;
+}
+
+.coming-soon-icon {
+  @apply text-6xl mb-6;
+}
+
+.coming-soon-content > p:first-of-type {
+  @apply text-2xl font-bold text-purple-600 dark:text-purple-400 mb-8;
+}
+
+.planned-features {
+  @apply mb-8;
+}
+
+.planned-features h3 {
+  @apply text-xl font-semibold text-gray-800 dark:text-gray-200 mb-4;
+}
+
+.planned-features ul {
+  @apply list-none space-y-3 text-left;
+}
+
+.planned-features li {
+  @apply flex items-center text-gray-700 dark:text-gray-300;
+  @apply bg-purple-50 dark:bg-purple-900/20 rounded-lg p-3;
+  @apply border border-purple-100 dark:border-purple-800;
+}
+
+.development-status {
+  @apply border-t border-purple-200 dark:border-purple-700 pt-6;
+  @apply space-y-2;
+}
+
+.development-status p {
+  @apply text-gray-600 dark:text-gray-400;
+}
+
+.development-status strong {
+  @apply text-purple-600 dark:text-purple-400 font-semibold;
+}

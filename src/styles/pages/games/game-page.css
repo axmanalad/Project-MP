@@ -1,0 +1,36 @@
+@import "tailwindcss";
+
+.game-page {
+  @apply min-h-screen;
+}
+
+.game-page .parent-container {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2;
+}
+
+.game-content {
+  @apply mt-6;
+}
+
+/* Genshin Dashboard Styles */
+.genshin-dashboard {
+  @apply space-y-6;
+}
+
+.dashboard-content {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6;
+  @apply border border-purple-200 dark:border-purple-800;
+}
+
+/* Coming Soon fallback for unavailable tabs */
+.coming-soon {
+  @apply text-center py-12;
+}
+
+.coming-soon h3 {
+  @apply text-2xl font-bold text-purple-600 dark:text-purple-400 mb-4;
+}
+
+.coming-soon p {
+  @apply text-gray-600 dark:text-gray-400 text-lg;
+}

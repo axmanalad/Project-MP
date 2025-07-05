@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import type { GameHeaderProps } from "../../../types";
 import "../../../styles/components/games/shared/game-header.css";
+import GameHeaderStatCard from "./GameHeaderStatCard";
+import { gameStats } from "../../../data/gameStats";
 
 const GameHeader: React.FC<GameHeaderProps> = ({ game }) => {
+  const gameId = game.id;
+  const currentGameStats = gameStats[gameId];
+  
   return (
     <header className="game-header">
       <div 
@@ -22,14 +27,9 @@ const GameHeader: React.FC<GameHeaderProps> = ({ game }) => {
             
             {game.isAvailable && (
               <div className="game-stats mt-4">
-                <div className="game-stat">
-                  <div className="game-stat-label">Last Played</div>
-                  <div className="game-stat-value">2 days ago</div>
-                </div>
-                <div className="game-stat">
-                  <div className="game-stat-label">Total Playtime</div>
-                  <div className="game-stat-value">1234 days</div>
-                </div>
+                {currentGameStats.map((stat) => (
+                  <GameHeaderStatCard title={stat.title} value={stat.value} key={stat.title} />
+                ))}
               </div>
             )}
           </div>

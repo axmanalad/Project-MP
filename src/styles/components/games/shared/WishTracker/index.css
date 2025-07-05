@@ -50,6 +50,12 @@
   @apply rounded-full;
 }
 
+.guaranteed-text {
+  @apply text-sm text-purple-600 dark:text-purple-400 mt-2;
+  @apply text-center font-medium;
+  @apply flex items-center justify-center;
+}
+
 /* Special styling for different pity levels */
 .pity-card:has(.progress-bar[style*="width: 50%"]) .progress-bar,
 .pity-card:has(.progress-bar[style*="width: 5"]) .progress-bar {

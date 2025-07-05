@@ -2,10 +2,14 @@ import type React from "react";
 import type { WishItem, WishTrackerProps } from "../../../../types";
 import { useState } from "react";
 import "../../../../styles/components/games/shared/WishTracker/index.css";
+import PityCard from "./PityCard";
+import { pityStats } from "../../../../data/wishStats";
 
-const WishTracker: React.FC<WishTrackerProps> = () => {
+const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
   const [wishes] = useState<WishItem[]>([]);
   const [showSampleData, setShowSampleData] = useState(false);
+
+  const currentPityStats = pityStats[gameId];
 
   // TODO: Use gameId to fetch user's wish data for this specific game
   
@@ -38,29 +42,15 @@ const WishTracker: React.FC<WishTrackerProps> = () => {
       </div>
 
       <div className="pity-counters">
-        <div className="pity-card">
-          <h3>Character Banner</h3>
-          <div className="pity-count">45/90</div>
-          <div className="pity-progress">
-            <div className="progress-bar" style={{ width: String((45 / 90) * 100) + '%' }}></div>
-          </div>
-        </div>
-
-        <div className="pity-card">
-          <h3>Weapon Banner</h3>
-          <div className="pity-count">68/80</div>
-          <div className="pity-progress">
-            <div className="progress-bar" style={{ width: String((68 / 80) * 100) + '%' }}></div>
-          </div>
-        </div>
-
-        <div className="pity-card">
-          <h3>Standard Banner</h3>
-          <div className="pity-count">23/90</div>
-          <div className="pity-progress">
-            <div className="progress-bar" style={{ width: '25%' }}></div>
-          </div>
-        </div>
+        {currentPityStats.map((stat) => (
+          <PityCard 
+            key={`stat.${stat.bannerType}-${String(gameId)}`}
+            bannerType={stat.bannerType} 
+            current={stat.current} 
+            max={stat.max} 
+            guaranteed={stat.guaranteed} 
+          />
+        ))}
       </div>
 
       <div className="recent-wishes">

@@ -45,3 +45,7 @@ export interface PityCounter {
   max: number;
   guaranteed: boolean;
 }
+
+type gameId = number;
+
+export type PityStatsRecord = Record<gameId, PityCounter[]>;

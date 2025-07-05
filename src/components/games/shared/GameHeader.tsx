@@ -28,7 +28,7 @@ const GameHeader: React.FC<GameHeaderProps> = ({ game }) => {
             {game.isAvailable && (
               <div className="game-stats mt-4">
                 {currentGameStats.map((stat) => (
-                  <GameHeaderStatCard title={stat.title} value={stat.value} key={stat.title} />
+                  <GameHeaderStatCard title={stat.title} value={stat.value} key={`stat.${stat.title}-${String(gameId)}`} />
                 ))}
               </div>
             )}

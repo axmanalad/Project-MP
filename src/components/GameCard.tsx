@@ -1,6 +1,6 @@
 import "../styles/components/game-card.css";
 import type { GameCardProps } from "../types";
-import { convertDate } from "../utils/convertDate";
+import { convertDateWithoutTime } from "../utils/convertDate";
 import { useGameContext } from "../hooks/useGameContext";
 import { useLocation } from "react-router-dom";
 
@@ -45,7 +45,7 @@ function GameCard({ game }: GameCardProps) {
       <div className="game-info">
         <h3 className="game-title">{game.title}</h3>
         <p className="game-author">{game.author}</p>
-        <p className="game-release-date">Released: {convertDate(game.releaseDate)}</p>
+        <p className="game-release-date">Released: {convertDateWithoutTime(new Date(game.releaseDate))}</p>
       </div>
     </div>
   );

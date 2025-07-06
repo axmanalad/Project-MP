@@ -12,19 +12,6 @@ export interface WishItemProps {
   compact?: boolean;
 }
 
-export interface Wish extends WishItem {
-  gameId: string;
-  itemType: 'character' | 'weapon';
-  rarity: 3 | 4 | 5;
-  bannerType: 'character' | 'weapon' | 'standard';
-  source: 'manual' | 'import';
-}
-
-export interface WishHistory {
-  gameId: string;
-  wishes: Wish[];
-}
-
 export interface WishSummary {
   totalWishes: number;
   totalCharacters: number;

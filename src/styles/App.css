@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
 .main-content {
-  @apply flex-1 p-8 box-border w-full flex flex-col;
+  @apply flex-1 box-border w-full flex flex-col;
+}
+
+.main-content > *:not(.hero-section) {
+  @apply p-8;
 }

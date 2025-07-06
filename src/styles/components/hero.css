@@ -2,7 +2,7 @@
 
 
 .hero-section {
-  @apply min-h-auto flex flex-col justify-center items-center pt-20 px-4;
+  @apply min-w-screen flex flex-col justify-center items-center mt-15 pt-10;
   @apply bg-gradient-to-br from-purple-200 via-purple-300 to-purple-400 text-gray-900;
   background: linear-gradient(45deg, #e9d5ff, #c4b5fd, #a78bfa),
               linear-gradient(-45deg, #ddd6fe, #c4b5fd, #a78bfa);
@@ -20,7 +20,7 @@
 }
 
 .hero-title {
-  @apply text-4xl md:text-6xl font-bold mb-4 text-center;
+  @apply text-4xl md:text-6xl font-bold mt-4 mb-4 text-center;
   text-shadow: 0 0 10px rgba(234, 0, 255, 0.5);
 }
 

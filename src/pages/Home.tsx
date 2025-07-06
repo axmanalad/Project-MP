@@ -5,15 +5,17 @@ import { games } from "../data/games";
 
 function Home() {
   return (
-    <div className="home">
+    <>
       <Hero />
-      <h2>Upcoming Games Supported</h2>
-      <div className="games-grid">
-        {games.map(game => (
-          <GameCard game={game} key={game.id} />
-        ))}
+      <div className="home">
+        <h2>Upcoming Games Supported</h2>
+        <div className="games-grid">
+          {games.map(game => (
+            <GameCard game={game} key={game.id} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 

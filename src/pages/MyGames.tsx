@@ -6,6 +6,7 @@ import { gameQuickStats, quickStats } from "../data/quickStats";
 import StatCard from "../components/StatCard";
 import { Link } from "react-router";
 import { useMemo } from "react";
+import { pityStats } from "../data/wishStats";
 
 function MyGames() {
   const { myGames } = useGameContext();
@@ -18,6 +19,24 @@ function MyGames() {
       return stat;
     });
   }, [myGames.length]);
+
+  const getDynamicGameStats = (gameId: number) => {
+    const gamePityData = pityStats[gameId];
+    const characterBanner = gamePityData.find(banner => banner.bannerType === 'Character');
+
+    return gameQuickStats.map((stat) => {
+      if (stat.title === "Character Pity") {
+        return {
+          ...stat,
+          value: characterBanner ? characterBanner.current : 0
+        };
+      }
+      if (stat.title === "Energy") {
+        return { ...stat, value: stat.value };
+      }
+      return stat;
+    });
+  };
 
   if (myGames.length > 0) {
     return (
@@ -43,21 +62,24 @@ function MyGames() {
           <div className="games-section">
             <h2 className="games-section-title">Your Games</h2>
             <div className={`grid gap-6 ${centerGrid(myGames.length)}`}>
-              {myGames.map((game) => (
-                <div key={game.id} className="game-item-wrapper">
-                  <Link
-                    to={`/game/${game.title.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="game-link"
-                  >
-                    <GameCard game={game} />
-                  </Link>
-                  <div className="quick-stats-overlay">
-                    {gameQuickStats.map((stat) => (
-                      <StatCard key={stat.title} title={stat.title} value={stat.value} />
-                    ))}
+              {myGames.map((game) => {
+                const dynamicGameStats = getDynamicGameStats(game.id);
+                return (
+                  <div key={game.id} className="game-item-wrapper">
+                    <Link
+                      to={`/game/${game.title.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="game-link"
+                    >
+                      <GameCard game={game} />
+                    </Link>
+                    <div className="quick-stats-overlay">
+                      {dynamicGameStats.map((stat) => (
+                        <StatCard key={stat.title} title={stat.title} value={stat.value} />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

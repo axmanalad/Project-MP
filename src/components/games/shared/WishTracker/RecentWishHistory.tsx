@@ -3,8 +3,6 @@ import type { RecentWishHistoryProps } from "../../../../types";
 import WishItem from "./WishItem";
 import EmptyWishState from "./EmptyWishState";
 
-
-
 const RecentWishHistory: React.FC<RecentWishHistoryProps> = ({ wishes, onViewAll }) => {
   return (
       <div className="recent-wishes">

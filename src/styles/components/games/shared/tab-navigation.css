@@ -6,17 +6,17 @@
 }
 
 .tab-list {
-  @apply flex overflow-x-auto;
+  @apply flex min-h-full w-full;
   @apply bg-purple-50 dark:bg-gray-900;
+  @apply min-w-full overflow-hidden;
 }
 
 .tab-button {
-  @apply flex-shrink-0 px-6 py-4 text-sm font-medium;
+  @apply flex-shrink-0 px-6 py-4 m-0 text-base font-medium;
   @apply transition-all duration-200;
   @apply border-b-2 border-transparent;
   @apply whitespace-nowrap;
-  @apply relative;
-  margin: 0;
+  @apply relative min-w-0 flex-grow;
   /* Remove focus outline and any selection borders */
   outline: none !important;
   border: none !important;
@@ -65,7 +65,7 @@
 .tab-button.active {
   @apply text-purple-600 dark:text-purple-400;
   @apply bg-white dark:bg-gray-800;
-  @apply shadow-sm;
+  @apply shadow-sm z-10;
   /* Add bottom border back for active state */
   border-bottom: 2px solid rgb(147 51 234) !important; /* purple-600 */
 }
@@ -81,7 +81,7 @@
 
 .tab-button.unavailable {
   @apply text-gray-400 dark:text-black;
-  @apply cursor-not-allowed;
+  @apply cursor-not-allowed flex items-center;
   @apply opacity-60;
 }
 

@@ -13,7 +13,7 @@ export const quickStats: StatCardProps[] = [
 
 export const gameQuickStats: StatCardProps[] = [
   {
-    title: 'Pity',
+    title: 'Character Pity',
     value: 0, // This will be dynamically updated
   },
   {

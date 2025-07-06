@@ -4,6 +4,7 @@ import { useState } from "react";
 import "../../../../styles/components/games/shared/WishTracker/index.css";
 import PityCard from "./PityCard";
 import { pityStats } from "../../../../data/wishStats";
+import RecentWishHistory from "./RecentWishHistory";
 
 const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
   const [wishes] = useState<WishItem[]>([]);
@@ -43,13 +44,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
 
       <div className="pity-counters">
         {currentPityStats.map((stat) => (
-          <PityCard 
-            key={`stat.${stat.bannerType}-${String(gameId)}`}
-            bannerType={stat.bannerType} 
-            current={stat.current} 
-            max={stat.max} 
-            guaranteed={stat.guaranteed} 
-          />
+          <PityCard key={`stat.${stat.bannerType}-${String(gameId)}`} {...stat}/>
         ))}
       </div>
 
@@ -66,19 +61,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
         ) : (
           <div className="wish-history">
             {displayWishes.map((wish) => (
-              <div key={wish.id} className="wish-item">
-                <div className="wish-item-info">
-                  <div className={`wish-item-rarity rarity-${wish.rarity.toString()}`}></div>
-                  <div>
-                    <div className="wish-item-name">{wish.itemName}</div>
-                    <div className="flex items-center gap-2">
-                      <div className="wish-item-type">{wish.itemType}</div>
-                      <div className="wish-item-pity">#{wish.pityCount}</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="wish-item-date">{wish.timestamp}</div>
-              </div>
+              <RecentWishHistory key={wish.id} {...wish} />
             ))}
           </div>
         )}

@@ -4,8 +4,9 @@ import { useMemo, useState } from "react";
 import WishFilters from "./WishFilters";
 import EmptyWishState from "./EmptyWishState";
 import WishItem from "./WishItem";
+import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 
-const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecent }) => {
+const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecent, selectedBanner, onClearFilter, isFiltered = false }) => {
   const [filters, setFilters] = useState<WishFilterTypes>({
     rarity: 'all',
     itemType: 'all',
@@ -60,7 +61,11 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
           >
             ← Back to Recent
           </button>
-          <h3>Full Wish History</h3>
+          <h3>
+            {
+              isFiltered && selectedBanner ? `Full ${getBannerDisplayName(selectedBanner)} Banner Wish History` : "Full Wish History"
+            }
+          </h3>
         </div>
 
         <div className="history-stats">
@@ -68,6 +73,16 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
           <div className="stat-chip rarity-5">5★: {rarityStats[5]}</div>
           <div className="stat-chip rarity-4">4★: {rarityStats[4]}</div>
           <div className="stat-chip rarity-3">3★: {rarityStats[3]}</div>
+
+          {isFiltered && onClearFilter && (
+            <button
+              type="button"
+              className="stat-chip clear"
+              onClick={onClearFilter}
+            >
+              Clear Filters
+            </button>
+          )}
         </div>
       </div>
 
@@ -78,7 +93,10 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
       />
 
       {filteredWishes.length === 0 ? (
-        <EmptyWishState message="No wishes match your filters." showIcon={false} />
+        <EmptyWishState message={isFiltered ?
+          `No ${selectedBanner ? getBannerDisplayName(selectedBanner) : ""} banner wishes match your filters` :
+          "No wishes match your filters."} showIcon={false} 
+        />
       ) : (
         <div className="wish-history full">
           {filteredWishes.map((wish) => (

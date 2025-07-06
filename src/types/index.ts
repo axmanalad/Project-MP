@@ -4,3 +4,4 @@ export * from './game';
 export * from './stats';
 export * from './components';
 export * from './wish';
+export * from './banner';

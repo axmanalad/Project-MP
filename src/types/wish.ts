@@ -1,5 +1,8 @@
+import type { BannerFilterType } from "./banner";
+
 export interface WishItem {
   id: number;
+  gachaType: 'character' | 'weapon' | 'standard';
   itemName: string;
   itemType: string;
   rarity: number;
@@ -57,22 +60,34 @@ export interface WishFilterProps {
 export interface RecentWishHistoryProps {
   wishes: WishItem[];
   onViewAll: () => void;
+  selectedBanner?: BannerFilterType;
+  onClearFilter?: () => void;
+  isFiltered?: boolean;
 }
 
 export interface FullWishHistoryProps {
   wishes: WishItem[];
   onBackToRecent: () => void;
+  selectedBanner?: BannerFilterType;
+  onClearFilter?: () => void;
+  isFiltered?: boolean;
 }
 
 export interface EmptyWishStateProps {
   message?: string;
   showIcon?: boolean;
 }
-export interface PityCounter {
+
+interface PityCounter {
   bannerType: string;
   current: number;
   max: number;
   guaranteed: boolean;
+}
+
+export interface PityCardProps extends PityCounter {
+  onClick?: () => void;
+  isSelected?: boolean;
 }
 
 type gameId = number;

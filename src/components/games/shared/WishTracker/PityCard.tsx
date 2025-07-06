@@ -1,9 +1,11 @@
-import type { PityCounter } from "../../../../types";
+import type { PityCardProps } from "../../../../types";
 import { calculatePity } from "../../../../utils/pityCalculation";
 
-function PityCard({bannerType, current, max, guaranteed}: PityCounter) {
+function PityCard({bannerType, current, max, guaranteed, onClick, isSelected = false}: PityCardProps) {
   return (
-    <div className="pity-card">
+    <div 
+      className={`pity-card ${onClick ? 'clickable' : ''} ${isSelected ? 'selected' : ''}`}
+      onClick={onClick}>
       <h3>{bannerType} Banner</h3>
       <div className="pity-count">{current}/{max}</div>
       <div className="pity-progress">

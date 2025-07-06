@@ -126,6 +126,10 @@
   @apply text-sm text-gray-500 dark:text-gray-400;
 }
 
+.wish-item-pity {
+  @apply text-sm text-purple-600 dark:text-purple-400;
+}
+
 .wish-item-date {
   @apply text-sm text-gray-500 dark:text-gray-400;
 }

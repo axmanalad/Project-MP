@@ -3,6 +3,7 @@ export interface WishItem {
   itemName: string;
   itemType: string;
   rarity: number;
+  pityCount: number;
   timestamp: string;
 }
 
@@ -11,7 +12,6 @@ export interface Wish extends WishItem {
   itemType: 'character' | 'weapon';
   rarity: 3 | 4 | 5;
   bannerType: 'character' | 'weapon' | 'standard';
-  pityCount: number;
   source: 'manual' | 'import';
 }
 

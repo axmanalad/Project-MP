@@ -14,9 +14,9 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
   // TODO: Use gameId to fetch user's wish data for this specific game
   
   const sampleWishes: WishItem[] = [
-    { id: 1, itemName: "Raiden Shogun", itemType: "Character", rarity: 5, timestamp: "2 days ago" },
-    { id: 2, itemName: "Engulfing Lightning", itemType: "Weapon", rarity: 5, timestamp: "1 week ago" },
-    { id: 3, itemName: "Xiangling", itemType: "Character", rarity: 4, timestamp: "1 week ago" }
+    { id: 1, itemName: "Raiden Shogun", itemType: "Character", rarity: 5, pityCount: 27, timestamp: "2 days ago" },
+    { id: 2, itemName: "Engulfing Lightning", itemType: "Weapon", rarity: 5, pityCount: 30, timestamp: "1 week ago" },
+    { id: 3, itemName: "Xiangling", itemType: "Character", rarity: 4, pityCount: 15, timestamp: "1 week ago" }
   ];
 
   const displayWishes = showSampleData ? sampleWishes : wishes;
@@ -71,7 +71,10 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
                   <div className={`wish-item-rarity rarity-${wish.rarity.toString()}`}></div>
                   <div>
                     <div className="wish-item-name">{wish.itemName}</div>
-                    <div className="wish-item-type">{wish.itemType}</div>
+                    <div className="flex items-center gap-2">
+                      <div className="wish-item-type">{wish.itemType}</div>
+                      <div className="wish-item-pity">#{wish.pityCount}</div>
+                    </div>
                   </div>
                 </div>
                 <div className="wish-item-date">{wish.timestamp}</div>

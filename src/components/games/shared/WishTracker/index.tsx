@@ -84,7 +84,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
       
       <WishStatistics
         gameId={gameId}
-        wishes={displayWishes}
+        wishes={isFiltered ? filteredWishes : displayWishes}
         selectedBanner={selectedBanner}
         isFiltered={isFiltered}
       />

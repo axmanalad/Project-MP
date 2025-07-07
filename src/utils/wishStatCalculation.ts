@@ -37,7 +37,7 @@ function avgPity(wishes: WishItem[]): number {
 
 /**
  * Calculates the average pity for 5-star wishes.
- * @param fiveStarWishes The list of 5-star wishes
+ * @param wishes The list of 5-star wishes
  * @returns The average pity for 5-star wishes (wins, losses, and win rate)
  */
 function getWLRatio(wishes: WishItem[]): [wins: number, losses: number, winRate: number] {
@@ -96,19 +96,27 @@ function getLongestStreak(fiveStarWishes: WishItem[], type: 'Win' | 'Loss'): num
     return longestTypeStreak;
   }
 
-  for (const wish of fiveStarWishes) {
+  // Start counting from the first wish
+  const sortedWishes = fiveStarWishes.slice().sort((a, b) => a.timestamp.localeCompare(b.timestamp));
+
+  for (const wish of sortedWishes) {
     const isType = wish.isWLGuarantee === type;
     if (isType) {
       currentTypeStreak++;
     } else if (wish.isWLGuarantee === 'Guaranteed') {
       continue; // Skip guaranteed wishes
     } else {
-      if (currentTypeStreak > longestTypeStreak) {
+      if (currentTypeStreak >= longestTypeStreak) {
         longestTypeStreak = currentTypeStreak;
       }
       currentTypeStreak = 0; // Reset streak count
     }
   }
 
+  // Check if current calculated streak is the longest
+  currentTypeStreak = getCurrentStreak(fiveStarWishes, type);
+  if (currentTypeStreak >= longestTypeStreak) {
+    longestTypeStreak = currentTypeStreak;
+  }
   return longestTypeStreak;
 }

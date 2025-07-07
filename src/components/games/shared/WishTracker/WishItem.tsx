@@ -1,6 +1,7 @@
 import type React from "react";
 import type { WishItemProps } from "../../../../types";
 import { convertDate } from "../../../../utils/convertDate";
+import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 
 const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
   return (
@@ -16,12 +17,15 @@ const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
             <span className="wish-item-type">{wish.itemType}</span>
             <span className="wish-item-pity">Pity: {wish.pityCount}</span>
             {!compact && (
-              <span className="wish-item-rarity-text">{wish.rarity}★</span>
+              <div className="flex gap-2">
+                <span className="wish-item-rarity-text">{wish.rarity}★</span>
+              </div>
             )}
+            <span className="wish-item-gacha-type">{`${getBannerDisplayName(wish.gachaType)} Banner`}</span>
           </div>
         </div>
       </div>
-      <div className="wish-item-timestamp">{convertDate(new Date(wish.timestamp))}</div>
+      <div className="wish-item-date">{convertDate(new Date(wish.timestamp))}</div>
     </div>
   );
 };

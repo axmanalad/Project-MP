@@ -163,11 +163,7 @@
   @apply font-semibold text-gray-800 dark:text-gray-200;
 }
 
-.wish-item-number {
-  @apply text-sm text-gray-500 dark:text-gray-400;
-}
-
-.wish-item-type {
+.wish-item-number, .wish-item-gacha-type, .wish-item-type, .wish-item-date {
   @apply text-sm text-gray-500 dark:text-gray-400;
 }
 

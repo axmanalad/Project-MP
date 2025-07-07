@@ -8,6 +8,7 @@ export interface WishItem {
   rarity: number;
   pityCount: number;
   timestamp: string;
+  isWLGuarantee: 'Win' | 'Loss' | 'Guaranteed' | 'None';
 }
 
 export interface WishItemProps {

@@ -4,6 +4,19 @@ import { convertDate } from "../../../../utils/convertDate";
 import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 
 const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
+  const getWLGuaranteeClass = (wlGuarantee: string) => {
+    switch (wlGuarantee.toLowerCase()) {
+      case 'win':
+        return 'wlg-win';
+      case 'loss':
+        return 'wlg-loss';
+      case 'guaranteed':
+        return 'wlg-guaranteed';
+      default:
+        return '';
+    }
+  }
+
   return (
     <div className={`wish-item ${compact ? 'compact' : 'detailed'}`}>
       <div className="wish-item-info">
@@ -12,6 +25,9 @@ const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
           <div className="flex flex-row gap-2 items-center">
             <div className="wish-item-name">{wish.itemName}</div>
             <div className="wish-item-number">#{wish.id}</div>
+            {!compact && wish.isWLGuarantee !== 'None' && (
+              <div className={`wish-item-WLG ${getWLGuaranteeClass(wish.isWLGuarantee)}`}>{wish.isWLGuarantee} </div>
+            )}
           </div>
           <div className="wish-item-meta">
             <span className="wish-item-type">{wish.itemType}</span>

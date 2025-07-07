@@ -57,8 +57,8 @@ const WishStatistics: React.FC<WishStatsProps> = ({ gameId, wishes, selectedBann
       <div className="wish-statistics">
         <div className="wish-statistics-header">
           <h2>Wish Statistics</h2>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            No wish data available. Please make some wishes to see statistics.
+          <p className="text-base text-gray-500 dark:text-gray-400">
+            No wish data available. Please add wishes to see statistics.
           </p>
         </div>
       </div>
@@ -74,8 +74,8 @@ const WishStatistics: React.FC<WishStatsProps> = ({ gameId, wishes, selectedBann
             'Wish Statistics'
           }
         </h2>
-        <p className="text-sm text-gray-500 dark:text-gray-400">
-          Based on {wishes.length} wishes
+        <p className="text-base text-gray-500 dark:text-gray-400">
+          {isFiltered ? 'Statistics for the selected banner.' : 'Overall wish statistics.'}
         </p>
       </div>
 

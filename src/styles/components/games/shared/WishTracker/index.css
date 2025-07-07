@@ -294,7 +294,7 @@
   @apply mb-6;
 }
 
-.wish-statistics-header h3 {
+.wish-statistics-header h2 {
   @apply text-xl font-bold text-gray-800 dark:text-gray-200 mb-1;
 }
 

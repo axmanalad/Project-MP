@@ -25,6 +25,8 @@
   @apply border-b-2 border-transparent;
   @apply whitespace-nowrap;
   @apply relative min-w-0;
+  /* Centering properties */
+  @apply flex items-center justify-center text-center;
   /* Responsive sizing and spacing */
   @apply px-3 py-3 text-sm font-medium; 
   @apply sm:px-4 sm:py-3 sm:text-sm;
@@ -97,7 +99,7 @@
 
 .tab-button.unavailable {
   @apply text-gray-400 dark:text-black;
-  @apply cursor-not-allowed flex items-center;
+  @apply cursor-not-allowed;
   @apply opacity-60;
 }
 

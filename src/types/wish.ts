@@ -1,5 +1,7 @@
 import type { BannerFilterType } from "./banner";
 
+type gameId = number;
+
 export interface WishItem {
   id: number;
   gachaType: 'character' | 'weapon' | 'standard';
@@ -9,31 +11,12 @@ export interface WishItem {
   pityCount: number;
   timestamp: string;
   isWLGuarantee: 'Win' | 'Loss' | 'Guaranteed' | 'None';
-}
+};
 
 export interface WishItemProps {
   wish: WishItem;
   compact?: boolean;
-}
-
-export interface WishSummary {
-  totalWishes: number;
-  totalCharacters: number;
-  totalWeapons: number;
-  fiveStarCharacters: number;
-  fiveStarWeapons: number;
-  fourStarCharacters: number;
-  fourStarWeapons: number;
-  threeStarItems: number;
-}
-
-export interface WishStats {
-  totalWishes: number;
-  fiveStarRate: number; // Percentage
-  fourStarRate: number; // Percentage
-  threeStarRate: number; // Percentage
-  averagePity: number; // Average pity count for 5-star items
-}
+};
 
 export type WishView = 'recent' | 'full';
 
@@ -43,7 +26,44 @@ export interface WishHeaderProps {
   showSampleData: boolean;
   onToggleSampleData: () => void;
   totalWishes: number;
+};
+
+type WishStatType = 'regular' | 'average' | 'streak' | 'ratio';
+
+export interface WishStatLabels {
+  totalWishes: number;
+  fiveStarWLRatio: [number, number, number]; // Ratio of 5-star wins to losses
+  avgFiveStarPity: number; // Average pity for 5-star items
+  avgFourStarPity: number; // Average pity for 4-star items
+  currentWinStreak: number; // Current win streak for 5-star items
+  currentLossStreak: number; // Current loss streak for 5-star items
+  longestWinStreak: number; // Longest win streak for 5-star items
+  longestLossStreak: number; // Longest loss streak for 5-star items
+};
+
+export interface WishStatsProps {
+  gameId: gameId;
+  wishes: WishItem[];
+  selectedBanner?: BannerFilterType;
+  isFiltered?: boolean;
+};
+
+export interface WishStatsData {
+  label: string;
+  value: string | number;
+  subtext?: string;
+  type: WishStatType;
 }
+
+export type WishStatsRecord = Record<gameId, WishStatsData[]>;
+
+interface WishCostData {
+  single: number;
+  ten: number;
+  currency: string; // e.g. 'primogems', 'fates'
+}
+
+export type WishCostRecord = Record<gameId, WishCostData>;
 
 export interface WishFilterTypes {
   rarity: 'all' | '3' | '4' | '5';
@@ -56,7 +76,7 @@ export interface WishFilterProps {
   filters: WishFilterTypes;
   onFilterChange: (filters: WishFilterTypes) => void;
   resultCount: number;
-}
+};
 
 export interface RecentWishHistoryProps {
   wishes: WishItem[];
@@ -64,7 +84,7 @@ export interface RecentWishHistoryProps {
   selectedBanner?: BannerFilterType;
   onClearFilter?: () => void;
   isFiltered?: boolean;
-}
+};
 
 export interface FullWishHistoryProps {
   wishes: WishItem[];
@@ -72,25 +92,23 @@ export interface FullWishHistoryProps {
   selectedBanner?: BannerFilterType;
   onClearFilter?: () => void;
   isFiltered?: boolean;
-}
+};
 
 export interface EmptyWishStateProps {
   message?: string;
   showIcon?: boolean;
-}
+};
 
 interface PityCounter {
   bannerType: string;
   current: number;
   max: number;
   guaranteed: boolean;
-}
+};
 
 export interface PityCardProps extends PityCounter {
   onClick?: () => void;
   isSelected?: boolean;
-}
-
-type gameId = number;
+};
 
 export type PityStatsRecord = Record<gameId, PityCounter[]>;

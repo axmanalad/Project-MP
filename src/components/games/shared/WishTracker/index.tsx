@@ -8,6 +8,7 @@ import RecentWishHistory from "./RecentWishHistory";
 import FullWishHistory from "./FullWishHistory";
 import WishHeader from "./WishHeader";
 import { useBannerFilter } from "../../../../hooks/useBannerFilter";
+import WishStatistics from "./WishStatistics";
 
 const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
   const [wishes] = useState<WishItem[]>([]);
@@ -80,6 +81,14 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
           );
         })}
       </div>
+      
+      <WishStatistics
+        gameId={gameId}
+        wishes={displayWishes}
+        selectedBanner={selectedBanner}
+        isFiltered={isFiltered}
+      />
+
       {renderWishHistory()}
     </div>
   );

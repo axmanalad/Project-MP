@@ -94,7 +94,7 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
 
       {filteredWishes.length === 0 ? (
         <EmptyWishState message={isFiltered ?
-          `No ${selectedBanner ? getBannerDisplayName(selectedBanner) : ""} banner wishes match your filters` :
+          `No ${selectedBanner ? getBannerDisplayName(selectedBanner) + " Banner" : ""} wishes match your filters` :
           "No wishes match your filters."} showIcon={false} 
         />
       ) : (

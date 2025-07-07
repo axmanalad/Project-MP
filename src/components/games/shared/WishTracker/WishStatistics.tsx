@@ -3,6 +3,7 @@ import type { WishStatsProps } from "../../../../types";
 import { useMemo } from "react";
 import { calculateWishStats } from "../../../../utils/wishStatCalculation";
 import { wishCostData, wishStats } from "../../../../data/wishStats";
+import WishStatCard from "./WishStatCard";
 
 const WishStatistics: React.FC<WishStatsProps> = ({ gameId, wishes, selectedBanner, isFiltered = false }) => {
   const statistics = useMemo(() => {
@@ -80,13 +81,13 @@ const WishStatistics: React.FC<WishStatsProps> = ({ gameId, wishes, selectedBann
 
       <div className="wish-statistics-grid">
         {statistics.map((stat, index) => (
-          <div key={`${stat.label}-${index.toString()}`} className={`wish-stat-item ${stat.type}`}>
-            <div className="wish-stat-value">{stat.value}</div>
-            <div className="wish-stat-label">{stat.label}</div>
-            {stat.subtext && (
-              <div className="wish-stat-subtext">{stat.subtext}</div>
-            )}
-          </div>
+          <WishStatCard
+            key={`${stat.label}-${index.toString()}`}
+            label={stat.label}
+            value={stat.value}
+            subtext={stat.subtext}
+            type={stat.type}
+          />
         ))}
       </div>
     </div>

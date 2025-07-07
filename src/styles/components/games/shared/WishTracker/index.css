@@ -323,14 +323,29 @@
   @apply bg-blue-50 dark:bg-blue-900/20;
 }
 
-.wish-stat-item.streak {
+.wish-stat-item.average.five-star {
+  @apply border-yellow-200 dark:border-yellow-300;
+  @apply bg-yellow-50 dark:bg-yellow-500/20;
+}
+
+.wish-stat-item.average.four-star {
+  @apply border-purple-200 dark:border-purple-700;
+  @apply bg-purple-50 dark:bg-purple-900/20;
+}
+
+.wish-stat-item.streak.win {
   @apply border-green-200 dark:border-green-700;
   @apply bg-green-50 dark:bg-green-900/20;
 }
 
+.wish-stat-item.streak.loss {
+  @apply border-red-200 dark:border-red-300;
+  @apply bg-red-50 dark:bg-red-900/20;
+}
+
 .wish-stat-item.ratio {
-  @apply border-purple-200 dark:border-purple-700;
-  @apply bg-purple-50 dark:bg-purple-900/20;
+  @apply border-pink-200 dark:border-pink-300;
+  @apply bg-pink-50 dark:bg-pink-900/20;
 }
 
 .wish-stat-value {
@@ -341,12 +356,24 @@
   @apply text-blue-600 dark:text-blue-400;
 }
 
-.wish-stat-item.streak .wish-stat-value {
+.wish-stat-item.average.five-star .wish-stat-value {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.wish-stat-item.average.four-star .wish-stat-value {
+  @apply text-purple-600 dark:text-purple-400;
+}
+
+.wish-stat-item.streak.win .wish-stat-value {
   @apply text-green-600 dark:text-green-400;
 }
 
+.wish-stat-item.streak.loss .wish-stat-value {
+  @apply text-red-600 dark:text-red-400;
+}
+
 .wish-stat-item.ratio .wish-stat-value {
-  @apply text-purple-600 dark:text-purple-400;
+  @apply text-pink-600 dark:text-pink-400;
 }
 
 .wish-stat-label {

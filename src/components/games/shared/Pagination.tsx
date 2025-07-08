@@ -25,10 +25,33 @@ const Pagination: React.FC<PaginationProps> = ({
   const endItem = Math.min(currentPage * itemsPerPage, totalItems);
 
   useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      onPageChange(totalPages);
+    }
+  }, [currentPage, totalPages, onPageChange]);
+
+  useEffect(() => {
     if (activeEllipsis !== null && inputRef.current) {
       inputRef.current.focus();
     }
   }, [activeEllipsis]);
+
+  /**
+   * Handle items per page change.
+   * @param newItemsPerPage The new number of items per page.
+   */
+  const handleItemsPerPageChange = (newItemsPerPage: number) => {
+    if (onItemsPerPageChange) {
+      const newTotalPages = Math.ceil(totalItems / newItemsPerPage);
+      if (currentPage > newTotalPages) {
+        const currentFirstItem = (currentPage - 1) * itemsPerPage + 1;
+        const newCurrentPage = (Math.ceil(currentFirstItem / newItemsPerPage), newTotalPages);
+        onPageChange(newCurrentPage);
+      }
+
+      onItemsPerPageChange(newItemsPerPage);
+    }
+  };
 
   const handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPageInput(e.target.value);
@@ -50,6 +73,9 @@ const Pagination: React.FC<PaginationProps> = ({
     setActiveEllipsis(null);
   };
 
+  /**
+   * Handle blur event for the page input.
+   */
   const handlePageInputBlur = () => {
     setActiveEllipsis(null);
     setPageInput("");
@@ -204,7 +230,7 @@ const Pagination: React.FC<PaginationProps> = ({
               <select
                 id="itemsPerPage"
                 value={itemsPerPage}
-                onChange={(e) => {onItemsPerPageChange(Number(e.target.value))}}
+                onChange={(e) => {handleItemsPerPageChange(Number(e.target.value))}}
                 className="items-per-page-select"
               >
                 {itemsPerPageOptions.map((option) => (

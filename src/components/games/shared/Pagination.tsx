@@ -321,26 +321,6 @@ const Pagination: React.FC<PaginationProps> = ({
           →
         </button>
       </div>
-
-      {/* Go to page input */}
-      {/* {showGoToPage && (
-        <div className="goto-page">
-          <form onSubmit={handlePageInputSubmit} className="goto-form">
-            <label htmlFor="pageInput">Go to page:</label>
-            <input
-              id="pageInput"
-              type="number"
-              min={1}
-              max={totalPages}
-              value={pageInput}
-              onChange={handlePageInputChange}
-              className="page-input"
-            />
-            <button type="submit" className="goto-btn">Go</button>
-          </form>
-          <span className="page-info">of {totalPages}</span>
-        </div>
-      )} */}
     </div>
   );
 };

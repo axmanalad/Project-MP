@@ -5,6 +5,7 @@ import WishFilters from "./WishFilters";
 import EmptyWishState from "./EmptyWishState";
 import WishItem from "./WishItem";
 import { getBannerDisplayName } from "../../../../utils/bannerUtils";
+import Pagination from "../Pagination";
 
 const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecent, selectedBanner, onClearFilter, isFiltered = false }) => {
   const [filters, setFilters] = useState<WishFilterTypes>({
@@ -12,6 +13,8 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
     itemType: 'all',
     sortBy: 'newest'
   });
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const filteredWishes = useMemo(() => {
     let filtered = [...wishes];
@@ -41,6 +44,12 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
 
     return filtered;
   }, [wishes, filters]);
+
+  const paginatedWishes = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    return filteredWishes.slice(startIndex, endIndex);
+  }, [filteredWishes, currentPage, itemsPerPage]);
 
   const rarityStats = useMemo(() => {
     const stats = { 3: 0, 4: 0, 5: 0, total: wishes.length};
@@ -98,11 +107,22 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
           "No wishes match your filters."} showIcon={false} 
         />
       ) : (
-        <div className="wish-history full">
-          {filteredWishes.map((wish) => (
-            <WishItem key={wish.id} wish={wish} compact={false} />
-          ))}
-        </div>
+        <>
+          <div className="wish-history full">
+            {paginatedWishes.map((wish) => (
+              <WishItem key={wish.id} wish={wish} compact={false} />
+            ))}
+          </div>
+
+          <Pagination
+            totalItems={filteredWishes.length}
+            itemsPerPage={itemsPerPage}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+            onItemsPerPageChange={setItemsPerPage}
+            itemName="wishes"
+          />
+        </>
       )}
     </div>
   );

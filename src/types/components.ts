@@ -27,3 +27,16 @@ export interface Tab {
   label: string;
   available: boolean;
 }
+
+export interface PaginationProps {
+  totalItems: number;
+  itemsPerPage: number;
+  currentPage: number;
+  onPageChange: (page: number) => void;
+  onItemsPerPageChange?: (itemsPerPage: number) => void;
+  itemsPerPageOptions?: number[];
+  showItemsPerPage?: boolean;
+  showItemsInfo?: boolean;
+  itemName?: string;
+  className?: string;
+}

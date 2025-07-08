@@ -1,3 +1,4 @@
+@import './components/games/shared/pagination.css';
 @import "tailwindcss";
 
 :root {

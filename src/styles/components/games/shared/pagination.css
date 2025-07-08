@@ -1,0 +1,150 @@
+/* src/styles/shared/pagination.css */
+.pagination {
+  @apply mt-8 space-y-4 p-4 bg-gray-50 dark:bg-gray-900 rounded-lg;
+}
+
+.pagination-info {
+  @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3;
+}
+
+.items-per-page {
+  @apply flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300;
+}
+
+.items-per-page label {
+  @apply font-medium;
+}
+
+.items-per-page-select {
+  @apply px-2 py-1 border border-gray-300 dark:border-gray-600 rounded;
+  @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+  @apply text-sm;
+}
+
+.showing-info {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}
+
+.pagination-controls {
+  @apply flex items-center justify-center gap-2 flex-wrap;
+}
+
+.pagination-btn {
+  @apply px-3 py-2 text-sm font-medium rounded-md;
+  @apply bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600;
+  @apply text-gray-700 dark:text-gray-300;
+  @apply hover:bg-gray-50 dark:hover:bg-gray-700;
+  @apply disabled:opacity-50 disabled:cursor-not-allowed;
+  @apply transition-colors;
+}
+
+.pagination-pages {
+  @apply flex items-center gap-1;
+}
+
+.pagination-page {
+  @apply w-10 h-10 flex items-center justify-center text-sm font-medium;
+  @apply bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600;
+  @apply text-gray-700 dark:text-gray-300 rounded-md;
+  @apply hover:bg-gray-50 dark:hover:bg-gray-700;
+  @apply transition-colors;
+}
+
+.pagination-page.active {
+  @apply bg-purple-600 dark:bg-purple-500 border-purple-600 dark:border-purple-500;
+  @apply text-white;
+  @apply hover:bg-purple-700 dark:hover:bg-purple-600;
+}
+
+.page-input {
+  @apply w-16 px-2 py-1 text-sm text-center;
+  @apply border border-gray-300 dark:border-gray-600 rounded;
+  @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+}
+
+.page-info {
+  @apply text-sm text-gray-600 dark:text-gray-400;
+}
+
+.pagination-ellipsis-container {
+  @apply relative inline-flex items-center justify-center;
+  @apply w-10 h-10;
+}
+
+.pagination-ellipsis {
+  @apply w-full h-full flex items-center justify-center text-gray-400 dark:text-gray-200;
+  @apply text-sm cursor-pointer rounded-md;
+  @apply hover:bg-gray-100 dark:hover:bg-gray-700;
+  @apply hover:text-gray-600 dark:hover:text-gray-300;
+  @apply transition-all duration-200;
+  @apply border border-transparent;
+  /* Override global button styles */
+  @apply !bg-transparent;
+  @apply !text-gray-400 dark:!text-gray-200;
+  @apply !shadow-none;
+  @apply !font-normal;
+}
+
+.pagination-ellipsis:hover {
+  @apply border-gray-300 dark:border-gray-600;
+  @apply !bg-gray-50 dark:!bg-gray-700;
+  @apply !text-gray-600 dark:!text-gray-300;
+}
+
+.ellipsis-input-form {
+  @apply w-full h-full;
+}
+
+.ellipsis-page-input {
+  @apply w-full h-full px-2 text-sm text-center;
+  @apply border border-gray-300 dark:border-gray-600 rounded-md;
+  @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+  @apply focus:outline-none focus:ring-2 focus:ring-gray-500 dark:focus:ring-gray-400;
+  @apply focus:border-transparent;
+  @apply shadow-md;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+.ellipsis-page-input::-webkit-outer-spin-button,
+.ellipsis-page-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.ellipsis-page-input::placeholder {
+  @apply text-gray-400 dark:text-gray-200 text-xs;
+}
+
+/* Animation for smooth transition */
+.pagination-ellipsis-container {
+  @apply transition-all duration-200;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .pagination-controls {
+    @apply flex-col gap-3;
+  }
+  
+  .pagination-pages {
+    @apply gap-1;
+  }
+  
+  .pagination-page, .pagination-btn {
+    @apply text-xs px-2 py-1;
+  }
+  
+  .pagination-page {
+    @apply w-8 h-8;
+  }
+
+  .ellipsis-page-input {
+    @apply text-xs;
+  }
+  
+  .pagination-ellipsis {
+    @apply text-xs;
+  }
+}

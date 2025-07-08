@@ -3,12 +3,13 @@ import type { WishItem, WishTrackerProps, WishView } from "../../../../types";
 import { useState } from "react";
 import "../../../../styles/components/games/shared/WishTracker/index.css";
 import PityCard from "./PityCard";
-import { pityStats, sampleWishData } from "../../../../data/wishStats";
+import { pityStats } from "../../../../data/wishStats";
 import RecentWishHistory from "./RecentWishHistory";
 import FullWishHistory from "./FullWishHistory";
 import WishHeader from "./WishHeader";
 import { useBannerFilter } from "../../../../hooks/useBannerFilter";
 import WishStatistics from "./WishStatistics";
+import { sampleWishData } from "../../../../data/sampleWishData";
 
 const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
   const [wishes] = useState<WishItem[]>([]);

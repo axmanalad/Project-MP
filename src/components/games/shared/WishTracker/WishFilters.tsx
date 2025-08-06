@@ -1,5 +1,7 @@
 import type React from "react";
 import type { WishFilterProps } from "../../../../types";
+import "../../../../styles/components/games/shared/WishTracker/wish-filters.css";
+
 
 const WishFilters: React.FC<WishFilterProps> = ({ filters, onFilterChange, resultCount }) => {
   const handleFilterChange = (key: keyof typeof filters, value: string) => {

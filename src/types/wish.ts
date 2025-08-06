@@ -26,6 +26,7 @@ export interface WishHeaderProps {
   showSampleData: boolean;
   onToggleSampleData: () => void;
   totalWishes: number;
+  gameId: gameId;
 };
 
 type WishStatType = 'regular' | 'average' | 'streak' | 'ratio';
@@ -78,6 +79,14 @@ export interface WishFilterProps {
   resultCount: number;
 };
 
+interface WishImportInfo {
+  gameName: string;
+  scriptName: string;
+  steps: string[];
+}
+
+export type WishImportRecord = Record<gameId, WishImportInfo>;
+
 export interface RecentWishHistoryProps {
   wishes: WishItem[];
   onViewAll: () => void;
@@ -112,3 +121,15 @@ export interface PityCardProps extends PityCounter {
 };
 
 export type PityStatsRecord = Record<gameId, PityCounter[]>;
+
+export interface WishImportInstructionsProps {
+  gameId: gameId;
+  onClose: () => void;
+  isOpen: boolean;
+};
+
+export interface StepCardProps {
+  step: string;
+  instruction?: string;
+  instructionList?: string[];
+}

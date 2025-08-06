@@ -1,0 +1,72 @@
+@import "tailwindcss";
+
+
+.wish-item {
+  @apply flex items-center justify-between;
+  @apply p-4 bg-gray-50 dark:bg-gray-700 rounded-lg;
+  @apply border border-gray-200 dark:border-gray-600;
+}
+
+.wish-item-info {
+  @apply flex items-center space-x-4;
+}
+
+.wish-item-rarity {
+  @apply w-4 h-4 rounded-full;
+}
+
+.wish-item-rarity.rarity-3 {
+  @apply bg-blue-500;
+}
+
+.wish-item-rarity.rarity-4 {
+  @apply bg-purple-500;
+}
+
+.wish-item-rarity.rarity-5 {
+  @apply bg-yellow-500;
+}
+
+.wish-item-name {
+  @apply font-semibold text-gray-800 dark:text-gray-200;
+}
+
+.wish-item-number, .wish-item-gacha-type, .wish-item-type, .wish-item-date {
+  @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+.wish-item-pity {
+  @apply text-sm text-purple-600 dark:text-purple-400;
+}
+
+.wish-item-WLG {
+  @apply text-sm font-medium;
+}
+
+.wish-item-WLG.wlg-win {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.wish-item-WLG.wlg-loss {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.wish-item-WLG.wlg-guaranteed {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.wish-item-date {
+  @apply text-sm text-gray-500 dark:text-gray-400;
+}
+
+.wish-item.compact {
+  @apply py-3;
+}
+
+.wish-item.detailed {
+  @apply py-4;
+}
+
+.wish-item-meta {
+  @apply flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400;
+}

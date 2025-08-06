@@ -1,0 +1,33 @@
+@media (max-width: 640px) {
+  .wish-statistics-grid {
+    @apply grid-cols-2 gap-3;
+  }
+
+  .wish-stat-item {
+    @apply p-3;
+  }
+
+  .wish-stat-value {
+    @apply text-xl;
+  }
+}
+
+@media (max-width: 480px) {
+  .wish-statistics-grid {
+    @apply grid-cols-1;
+  }
+}
+
+@media (max-width: 768px) {
+  .pity-counters {
+    @apply grid-cols-1;
+  }
+  
+  .pity-card {
+    @apply p-4;
+  }
+  
+  .pity-count {
+    @apply text-2xl;
+  }
+}

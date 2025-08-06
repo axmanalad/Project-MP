@@ -1,0 +1,68 @@
+@import "tailwindcss";
+
+
+.wish-filters {
+  @apply bg-gray-50 dark:bg-gray-900 rounded-lg p-4 mb-6;
+}
+
+.filters-row {
+  @apply flex flex-wrap gap-4 mb-3;
+}
+
+.filter-group {
+  @apply flex flex-col;
+}
+
+.filter-group label {
+  @apply text-sm font-medium text-gray-700 dark:text-gray-300 mb-1;
+}
+
+.filter-group select {
+  @apply px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md;
+  @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+}
+
+/* Full History */
+.full-history-header {
+  @apply flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6;
+}
+
+.full-history-header h3 {
+  @apply text-2xl font-bold text-gray-800 dark:text-gray-200;
+}
+
+.history-navigation {
+  @apply flex items-center gap-3;
+}
+
+.wish-history-btn {
+  @apply px-4 py-2 text-sm;
+  @apply text-black dark:text-white hover:text-purple-800 dark:hover:text-purple-200;
+  @apply font-medium transition-colors;
+}
+
+.history-stats {
+  @apply flex gap-2 flex-wrap;
+}
+
+.stat-chip {
+  @apply px-3 py-1 text-xs font-medium rounded-full;
+  @apply bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300;
+}
+
+.stat-chip.rarity-5 {
+  @apply bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200;
+}
+
+.stat-chip.rarity-4 {
+  @apply bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200;
+}
+
+.stat-chip.rarity-3 {
+  @apply bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200;
+}
+
+.stat-chip.clear {
+  @apply bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200;
+  @apply cursor-pointer hover:bg-red-200 dark:hover:bg-red-800;
+}

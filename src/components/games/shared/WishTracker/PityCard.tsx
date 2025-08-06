@@ -1,5 +1,7 @@
 import type { PityCardProps } from "../../../../types";
 import { calculatePity } from "../../../../utils/pityCalculation";
+import "../../../../styles/components/games/shared/WishTracker/pity-card.css";
+
 
 function PityCard({bannerType, current, max, guaranteed, onClick, isSelected = false}: PityCardProps) {
   return (

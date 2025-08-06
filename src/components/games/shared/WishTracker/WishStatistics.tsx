@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import { calculateWishStats } from "../../../../utils/wishStatCalculation";
 import { wishCostData, wishStats } from "../../../../data/wishStats";
 import WishStatCard from "./WishStatCard";
+import "../../../../styles/components/games/shared/WishTracker/wish-statistics.css";
 
 const WishStatistics: React.FC<WishStatsProps> = ({ gameId, wishes, selectedBanner, isFiltered = false }) => {
   const statistics = useMemo(() => {

@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+
+.history-stats {
+  @apply flex gap-2 flex-wrap;
+}
+
+/* Wish Statistics */
+.wish-statistics {
+  @apply bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 mb-6;
+  @apply border border-gray-200 dark:border-gray-700;
+}
+
+.wish-statistics-header {
+  @apply mb-6;
+}
+
+.wish-statistics-header h2 {
+  @apply text-xl font-bold text-gray-800 dark:text-gray-200 mb-1;
+}
+
+.wish-statistics-grid {
+  @apply grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4;
+}
+
+.wish-stat-item {
+  @apply text-center p-4 rounded-lg;
+  @apply bg-gray-50 dark:bg-gray-700;
+  @apply border border-gray-200 dark:border-gray-600;
+  @apply transition-all duration-200;
+}
+
+.wish-stat-item:hover {
+  @apply transform scale-105 shadow-md;
+}
+
+.wish-stat-item.regular {
+  @apply border-gray-200 dark:border-gray-700;
+  @apply bg-gray-50 dark:bg-gray-900/20;
+}
+
+.wish-stat-item.average {
+  @apply border-blue-200 dark:border-blue-700;
+  @apply bg-blue-50 dark:bg-blue-900/20;
+}
+
+.wish-stat-item.average.five-star {
+  @apply border-yellow-200 dark:border-yellow-300;
+  @apply bg-yellow-50 dark:bg-yellow-500/20;
+}
+
+.wish-stat-item.average.four-star {
+  @apply border-purple-200 dark:border-purple-700;
+  @apply bg-purple-50 dark:bg-purple-900/20;
+}
+
+.wish-stat-item.streak.win {
+  @apply border-green-200 dark:border-green-700;
+  @apply bg-green-50 dark:bg-green-900/20;
+}
+
+.wish-stat-item.streak.loss {
+  @apply border-red-200 dark:border-red-300;
+  @apply bg-red-50 dark:bg-red-900/20;
+}
+
+.wish-stat-item.ratio {
+  @apply border-pink-200 dark:border-pink-300;
+  @apply bg-pink-50 dark:bg-pink-900/20;
+}
+
+.wish-stat-value {
+  @apply text-2xl font-bold text-gray-800 dark:text-gray-200 mb-1;
+}
+
+.wish-stat-item.average .wish-stat-value {
+  @apply text-blue-600 dark:text-blue-400;
+}
+
+.wish-stat-item.average.five-star .wish-stat-value {
+  @apply text-yellow-600 dark:text-yellow-400;
+}
+
+.wish-stat-item.average.four-star .wish-stat-value {
+  @apply text-purple-600 dark:text-purple-400;
+}
+
+.wish-stat-item.streak.win .wish-stat-value {
+  @apply text-green-600 dark:text-green-400;
+}
+
+.wish-stat-item.streak.loss .wish-stat-value {
+  @apply text-red-600 dark:text-red-400;
+}
+
+.wish-stat-item.ratio .wish-stat-value {
+  @apply text-pink-600 dark:text-pink-400;
+}
+
+.wish-stat-label {
+  @apply text-sm font-medium text-gray-700 dark:text-gray-300;
+}
+
+.wish-stat-subtext {
+  @apply text-xs text-gray-500 dark:text-gray-400 mt-1;
+}

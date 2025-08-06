@@ -1,4 +1,4 @@
-import type { PityStatsRecord, WishCostRecord, WishStatsRecord } from "../types";
+import type { PityStatsRecord, WishCostRecord, WishImportRecord, WishStatsRecord } from "../types";
 
 export const pityStats: PityStatsRecord = {
   101: [
@@ -215,3 +215,26 @@ export const wishCostData: WishCostRecord = {
     currency: 'Astrites'
   }
 };
+
+export const wishImportData: WishImportRecord = {
+  101: {
+    gameName: 'Genshin Impact',
+    scriptName: 'genshin-wish-export',
+    steps: [
+      '- Open Genshin Impact and log in to your account',
+      '- Navigate to the Wish History page in-game',
+      '- Open the Wish History for any banner (Character, Weapon, or Standard)',
+      '- Keep this page open in the background'
+    ]
+  },
+  102: {
+    gameName: 'Honkai: Star Rail',
+    scriptName: 'hsr-warp-export',
+    steps: [
+      '- Open Honkai: Star Rail and log in to your account',
+      '- Navigate to the Warp History page in-game',
+      '- Open the Warp History for any banner',
+      '- Keep this page open in the background'
+    ]
+  }
+}

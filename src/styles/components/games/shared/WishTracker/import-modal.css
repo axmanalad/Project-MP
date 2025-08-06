@@ -1,0 +1,204 @@
+@import "tailwindcss";
+
+/* Wish Import Modal Styles */
+.wish-import-modal {
+  @apply max-w-2xl max-h-screen overflow-y-auto;
+}
+
+.modal-overlay {
+  @apply fixed inset-0 min-h-screen bg-black/50  flex items-center justify-center z-50;
+  @apply p-0;
+  --scrollbar-width: calc(100vw - 100%);
+}
+
+.modal-content {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow-xl;
+  @apply border border-gray-200 dark:border-gray-700;
+}
+
+.modal-header {
+  @apply flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700;
+}
+
+.modal-header h2 {
+  @apply text-xl font-bold text-gray-800 dark:text-gray-200;
+}
+
+.modal-open {
+  overflow: hidden !important;
+}
+
+.modal-open {
+  overflow: hidden !important;
+  padding-right: var(--scrollbar-width, 0px);
+}
+
+.modal-close {
+  @apply text-lg font-bold;
+  @apply px-2 flex items-center justify-center;
+  @apply transition-colors;
+}
+
+.modal-body {
+  @apply p-6;
+}
+
+.modal-footer {
+  @apply p-6 border-t border-gray-200 dark:border-gray-700;
+  @apply flex justify-center;
+}
+
+/* Step Content */
+.step-content h3 {
+  @apply text-lg font-semibold text-gray-800 dark:text-gray-200 mb-4;
+}
+
+.step-content p {
+  @apply text-gray-600 dark:text-gray-300 mb-4;
+}
+
+.step-btn {
+  @apply px-3 py-1 transition-colors;
+}
+
+.instruction-list {
+  @apply list-decimal list-inside space-y-2 mb-6;
+  @apply text-gray-700 dark:text-gray-300;
+}
+
+.instruction-item {
+  @apply text-gray-700 dark:text-gray-300;
+  @apply pl-2 mb-2;
+}
+
+/* Warning and Info Boxes */
+.warning-box, .info-box {
+  @apply flex gap-3 p-4 rounded-lg mb-6;
+}
+
+.warning-box {
+  @apply bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800;
+}
+
+.info-box {
+  @apply bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800;
+}
+
+.warning-icon, .info-icon {
+  @apply text-xl flex-shrink-0;
+}
+
+.warning-box div:last-child {
+  @apply text-yellow-800 dark:text-yellow-200;
+}
+
+.info-box div:last-child {
+  @apply text-blue-800 dark:text-blue-200;
+}
+
+/* Code Block */
+.code-block {
+  @apply bg-gray-900 dark:bg-gray-950 rounded-lg overflow-hidden mb-6;
+  @apply border border-gray-700;
+}
+
+.code-header {
+  @apply flex items-center justify-between p-3 bg-gray-800 dark:bg-gray-900;
+  @apply border-b border-gray-700;
+}
+
+.code-header span {
+  @apply text-sm font-medium text-gray-300;
+}
+
+.copy-btn {
+  @apply px-3 py-1 text-xs font-medium rounded;
+  @apply bg-purple-600 hover:bg-purple-700 text-white;
+  @apply transition-colors;
+}
+
+.code-block code {
+  @apply block p-4 text-sm font-mono text-gray-100;
+  @apply whitespace-pre-wrap break-all;
+}
+
+/* Form Elements */
+.form-group {
+  @apply mb-6;
+}
+
+.form-group label {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2;
+}
+
+.import-url-input {
+  @apply w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md;
+  @apply bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100;
+  @apply focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent;
+  @apply resize-y;
+}
+
+/* Import Preview */
+.import-preview {
+  @apply bg-gray-50 dark:bg-gray-900 rounded-lg p-4 mb-6;
+}
+
+.import-preview h4 {
+  @apply font-semibold text-gray-800 dark:text-gray-200 mb-3;
+}
+
+.import-preview ul {
+  @apply space-y-2;
+}
+
+.import-preview li {
+  @apply text-sm text-gray-700 dark:text-gray-300;
+}
+
+/* Step Actions */
+.step-actions {
+  @apply flex gap-3 justify-end mt-6;
+}
+
+/* Step Indicator */
+.step-indicator {
+  @apply flex items-center gap-4;
+}
+
+.step-dot {
+  @apply w-8 h-8 rounded-full flex items-center justify-center;
+  @apply text-sm font-medium;
+  @apply bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400;
+  @apply transition-all;
+}
+
+.step-dot.active {
+  @apply bg-purple-600 dark:bg-purple-500 text-white;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .wish-import-modal {
+    @apply max-w-full m-2;
+  }
+  
+  .modal-header, .modal-body, .modal-footer {
+    @apply p-4;
+  }
+  
+  .step-actions {
+    @apply flex-col;
+  }
+  
+  .code-block code {
+    @apply text-xs;
+  }
+  
+  .step-indicator {
+    @apply gap-2;
+  }
+  
+  .step-dot {
+    @apply w-6 h-6 text-xs;
+  }
+}

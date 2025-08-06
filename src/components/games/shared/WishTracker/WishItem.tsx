@@ -2,6 +2,8 @@ import type React from "react";
 import type { WishItemProps } from "../../../../types";
 import { convertDate } from "../../../../utils/convertDate";
 import { getBannerDisplayName } from "../../../../utils/bannerUtils";
+import "../../../../styles/components/games/shared/WishTracker/wish-items.css";
+
 
 const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
   const getWLGuaranteeClass = (wlGuarantee: string) => {

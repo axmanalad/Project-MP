@@ -66,6 +66,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameId }) => {
         showSampleData={showSampleData}
         onToggleSampleData={() => {setShowSampleData(!showSampleData)}}
         totalWishes={displayWishes.length}
+        gameId={gameId}
       />
       <div className="pity-counters">
         {currentPityStats.map((stat) => {

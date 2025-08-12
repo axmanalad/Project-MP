@@ -1,0 +1,157 @@
+# Genshin Impact Wish History Exporter
+# Credits: stardb.gg, jogerj
+# Warning: This script extracts sensitive URLs containing authentication tokens from Genshin Impact's wish history, please share it with caution.
+
+Add-Type -AssemblyName System.Web
+
+Write-Host "=== Genshin Impact Wish History Exporter ===" -ForegroundColor Cyan
+Write-Host "This script will extract your wish history from Genshin Impact." -ForegroundColor Green
+Write-Host ""
+
+$logLocation = ""
+$apiHost = ""
+# User choice on Game Region
+do {
+    $gameRegion = Read-Host "Select Game Region (1: Global, 2: China)"
+} while ($gameRegion -ne 1 -and $gameRegion -ne 2)
+
+if ($gameRegion -eq 1) {
+    $logLocation = "%userprofile%/AppData/LocalLow/miHoYo/Genshin Impact/output_log.txt"
+    $apiHost = "public-operation-hk4e-sg.hoyoverse.com"
+    Write-Host "You selected Global region." -ForegroundColor Green
+} elseif ($gameRegion -eq 2) {
+    $logLocation = "%userprofile%/AppData/LocalLow/miHoYo/$([char]0x539f)$([char]0x795e)/output_log.txt"
+    $apiHost = "public-operation-hk4e.mihoyo.com"
+    Write-Host "You selected China region." -ForegroundColor Green
+}
+
+Write-Host "Finding Genshin Impact output log..." -ForegroundColor Yellow
+# Removes temporary script made to allow Administrator rights and runs a new one if needed
+$temps = $env:TEMP + '/pm.ps1'
+if ([System.IO.File]::Exists($temps)) {
+    Remove-Item $temps
+}
+
+$path = [System.Environment]::ExpandEnvironmentVariables($logLocation)
+if (![System.IO.File]::Exists($path)) {
+    Write-Host "Cannot find log file. Please make sure to open the wish history in Genshin Impact first." -ForegroundColor Red
+    if (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")) {
+        Write-Host "Do you want to try running this script as Administrator? (Y/N)" -ForegroundColor Yellow
+        $response = Read-Host
+        if ($response.ToLower() -ne 'y') {
+            return
+        }
+        # Creates a temporary script to relaunch with Administrator rights
+        $MyInvocation.MyCommand.Definition > $temps
+        Start-Process powershell -Verb runAs -ArgumentList "-noexit", $temps
+        break
+    }
+    return
+}
+
+# Use regex to find relevant log entry for game data folder name
+$logContent = Get-Content -Path $path
+$pattern = "([A-Z]:\\.+?(GenshinImpact_Data|YuanShen_Data))"
+$foundEntry = $false
+foreach ($line in $logContent) {
+    if ($line -match $pattern) {
+        $gameDir = $matches[1]
+        $foundEntry = $true
+        break
+    }
+}
+if (!$foundEntry) {
+    Write-Host "No Genshin Impact log found. Please ensure you have played the game and opened the wish history." -ForegroundColor Red
+    return
+} else {
+    Write-Host "Genshin Impact log found at: $($matches[0])" -ForegroundColor Green
+}
+
+# Find game cache for most recent version and obtain auth token for wish history.
+Write-Host "Finding Genshin Impact wish authentication cache..." -ForegroundColor Yellow
+$webCachePath = Resolve-Path "$gameDir/webCaches"
+$cacheVerPath = Get-Item (Get-ChildItem -Path $webCachePath | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
+$cacheFile = Resolve-Path "$cacheVerPath/Cache/Cache_Data/data_2"
+$tempFile = "$env:TEMP/ch_data_2"
+
+Copy-Item $cacheFile -Destination $tempFile
+Write-Host "Wish History authentication found." -ForegroundColor Green
+
+# Makes a request to test Genshin API call
+function requestApiTest($url) {
+    $ProgressPreference = 'SilentlyContinue'
+    $uri = [System.UriBuilder]::new($url)
+    $uri.Path = "gacha_info/api/getGachaLog"
+    $uri.Host = $apiHost
+    $uri.Fragment = ""
+    $params = [System.Web.HttpUtility]::ParseQueryString($uri.Query)
+    $params.Set("lang", "en")
+    $params.Set("gacha_type", 301) # Character Event Wish
+    $params.Set("size", "5")
+    $params.Add("lang", "en-us")
+    $uri.Query = $params.ToString()
+    $apiUrl = $uri.Uri.AbsoluteUri
+
+    $response = Invoke-WebRequest -Uri $apiUrl -ContentType "application/json" -UseBasicParsing -TimeoutSec 10 | ConvertFrom-Json
+    return $response.retcode -eq 0
+}
+
+# Extract wish history URL
+Write-Host ""
+Write-Host "Extracting wish history URLs..." -ForegroundColor Yellow
+$content = Get-Content -Encoding UTF8 -Raw $tempFile
+$splitted = $content -split "1/0/"
+$found = @()
+foreach ($line in $splitted) {
+    if ($line -match "webview_gacha") {
+        $found += $line
+    }
+}
+$link = $false
+$linkFound = $false
+for ($i = $found.Length - 1; $i -ge 0; $i--) {
+    $t = $found[$i] -match "(https.+?game_biz=)"
+    $link = $matches[0]
+    Write-Host "`rChecking Link $i" -NoNewline
+    $res = requestApiTest $link
+    if ($res) {
+        $linkFound = $true
+        break
+    }
+    Start-Sleep 1
+}
+
+Remove-Item $tempFile
+
+Write-Host ""
+
+if (!$linkFound) {
+    Write-Host "Failed to find a valid wish history URL." -ForegroundColor Red
+    Write-Host "Tip: Ensure you have played the game and opened the wish history." -ForegroundColor Yellow
+    return
+}
+
+$wishHistoryUrl = $link
+Set-Clipboard -Value $wishHistoryUrl
+
+Write-Host "Wish history URL extracted successfully!" -ForegroundColor Green
+Write-Host ""
+Write-Host "Your import URL:" -ForegroundColor Cyan
+Write-Host $wishHistoryUrl -ForegroundColor White # Convert to a word hyperlink
+Write-Host ""
+Write-Host "   IMPORTANT: This URL contains your authentication key." -ForegroundColor Red
+Write-Host "   Only paste it into trusted applications like MaiPon." -ForegroundColor Red
+Write-Host ""
+Write-Host "   Instructions:" -ForegroundColor Yellow
+Write-Host "   1. Copy the URL above"
+Write-Host "   2. Return to MaiPon"
+Write-Host "   3. Paste the URL in the import dialog"
+Write-Host "   4. Click 'Import Wishes'"
+Write-Host ""
+Write-Host "   Your wish history URL has been copied to the clipboard." -ForegroundColor Yellow
+Write-Host "   You can paste it directly into MaiPon." -ForegroundColor Yellow
+Write-Host ""
+Write-Host "Script completed successfully!" -ForegroundColor Green
+
+# Keep window open
+Read-Host "Press [ENTER] to close this window";

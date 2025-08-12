@@ -110,7 +110,7 @@ foreach ($line in $splitted) {
 $link = $false
 $linkFound = $false
 for ($i = $found.Length - 1; $i -ge 0; $i--) {
-    $t = $found[$i] -match "(https.+?game_biz=)"
+    $found[$i] -match "(https.+?game_biz=)"
     $link = $matches[0]
     Write-Host "`rChecking Link $i" -NoNewline
     $res = requestApiTest $link

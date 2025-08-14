@@ -2,7 +2,7 @@
 
 ### Prerequisites
 
-- The latest version of [Node.js](https://nodejs.org/en)
+- The latest version of [Node.js](https://nodejs.org/en) >= 22.0.0
 - Either one of the following IDEs
   - [Visual Studio Code](https://code.visualstudio.com/) (*Recommended*)
   - [JetBrains Webstorm](https://www.jetbrains.com/webstorm/)
@@ -27,4 +27,24 @@ There are useful extensions in Visual Studio Code that are very useful for devel
     ```bash
     npm run dev
     ```
-2. To stop the server, enter `q` or `CTRL-C`.
+2. Or, you can host specific ends like the frontend or the backend only depending on your choice.
+    ```bash
+    npm run dev:frontend
+    # or..
+    npm run dev:backend
+    ```
+3. To stop the server, enter `q` or `CTRL-C`.
+
+### MaiPon Project Details
+The following details are utilized/currently planned tech stack and deployment for this project:
+#### Tech Stack
+- TypeScript - Core Language
+- React - Frontend
+- Node.js/Express - Backend
+- PostgreSQL - Database
+- Prisma - Database Framework
+- Git Actions - CI/CD Pipeline
+#### Deployment
+- Cloudflare Pages - Frontend
+- Render - Backend
+- Supabase - Database

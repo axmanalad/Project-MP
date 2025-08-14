@@ -11,4 +11,4 @@ The website is planning to feature cross-game compatibility in managing differen
 - Latest News Feed (official announcements from game company)
 
 ## Contributing
-Learn more about how to contribute in this [document](./docs/developers/Contributing.md).
+Learn more about how to contribute in this [document](./docs/developers/CONTRIBUTING.md).

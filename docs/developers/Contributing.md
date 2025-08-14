@@ -37,6 +37,7 @@ There are useful extensions in Visual Studio Code that are very useful for devel
 
 ### MaiPon Project Details
 The following details are utilized/currently planned tech stack and deployment for this project:
+
 #### Tech Stack
 - TypeScript - Core Language
 - React - Frontend
@@ -44,6 +45,7 @@ The following details are utilized/currently planned tech stack and deployment f
 - PostgreSQL - Database
 - Prisma - Database Framework
 - Git Actions - CI/CD Pipeline
+
 #### Deployment
 - Cloudflare Pages - Frontend
 - Render - Backend

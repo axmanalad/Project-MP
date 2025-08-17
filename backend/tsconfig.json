@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@prisma": ["./generated/prisma"],
+    },
+    "moduleResolution": "node",
+    "target": "es6",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+  }
+}

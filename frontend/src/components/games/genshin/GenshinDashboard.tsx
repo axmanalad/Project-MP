@@ -1,11 +1,38 @@
 import type React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import type { GenshinDashboardProps } from "../../../types";
 import TabNavigation from "../shared/TabNavigation";
 import WishTracker from "../shared/WishTracker";
+import { useAuth } from "../../../contexts/AuthContext";
+import { getUserGameId } from "../../../api/authService";
 
 const GenshinDashboard: React.FC<GenshinDashboardProps> = ({ game }) => {
   const [activeTab, setActiveTab] = useState('wishes');
+  const [userGameId, setUserGameId] = useState<string>('');
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth()
+
+  useEffect(() => {
+    // Fetch user game ID based on user ID and game
+    const fetchUserGameId = async () => {
+      if (!user) {
+        console.error('No user found in context.');
+        return;
+      }
+
+      try {
+        setLoading(true);
+        const id = await getUserGameId(game.name);
+        setUserGameId(id);
+      } catch (err) {
+        console.error('Error fetching user game ID:', err);
+      } finally {
+        setLoading(false)
+      }
+    };
+
+    fetchUserGameId();
+  }, [user, game.name]);
 
   const tabs = [
     { id: 'wishes', label: 'Wish Tracker', available: true },
@@ -16,9 +43,13 @@ const GenshinDashboard: React.FC<GenshinDashboardProps> = ({ game }) => {
   ];
 
   const renderTabContent = () => {
+    if (loading) {
+      return <div>Loading...</div>;
+    }
+
     switch (activeTab) {
       case 'wishes':
-        return <WishTracker gameId={game.id} />;
+        return userGameId ? <WishTracker gameName={game.name} userGameId={userGameId} /> : <div>No game data found</div>;
       default:
         return (
           <div className="coming-soon">

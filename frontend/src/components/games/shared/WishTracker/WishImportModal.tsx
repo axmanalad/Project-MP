@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react';
 import { wishImportData } from '../../../../data/wishStats';
 import type { WishImportInstructionsProps } from '../../../../types';
 import StepCard from '../StepCard';
+import axios from 'axios';
+import { importWishes } from '../../../../api/wishService';
 
-const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClose, gameId }) => {
+const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClose, userGameId, gameName }) => {
   const [importUrl, setImportUrl] = useState('');
   const [step, setStep] = useState(1);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
+  const [importing, setImporting] = useState(false);
+  const [importResults, setImportResults] = useState<any>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -20,16 +24,26 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
 
   if (!isOpen) return null;
 
-  const getGameInstructions = ( gameId: number ) => {
-    return wishImportData[gameId];
+  // TODO: Fix gameId for wishImportData
+  const getGameInstructions = ( gameName: string ) => {
+    return wishImportData[gameName];
   };
 
-  const gameInstructions = getGameInstructions(gameId);
+  const gameInstructions = getGameInstructions(gameName);
 
-  const handleImport = () => {
-    // TODO: This will be implemented in backend phase
-    console.log('Import URL:', importUrl);
-    onClose();
+  const handleImport = async () => {
+    setImporting(true);
+    try {
+      console.log('Starting to import wishes...');
+      const response = await importWishes(gameName, userGameId, importUrl);
+      console.log('Wish import successful!');
+      setImportResults(response.data);
+      setStep(4);
+    } catch (err: any) {
+      console.error('Import failed:', err);
+    } finally {
+      setImporting(false);
+    }
   };
 
   const copyToClipboard = async (text: string) => {
@@ -88,7 +102,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
                   <span>PowerShell Command</span>
                   <button 
                     type="button"
-                    onClick={() => {void copyToClipboard(`iwr -useb "https://localhost:5173/${gameInstructions.scriptName}" | iex`);}}
+                    onClick={() => {void copyToClipboard(`iwr -useb http://localhost:5173/wish | iex`);}}
                     className={`copy-btn ${copyStatus === 'copied' ? 'copied' : ''}`}
                     disabled={copyStatus === 'copied'}
                   >
@@ -96,7 +110,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
                   </button>
                 </div>
                 <code>
-                  iwr -useb "https://localhost:5173/{gameInstructions.scriptName}" | iex
+                  iwr -useb http://localhost:5173/wish | iex
                 </code>
               </div>
 
@@ -130,7 +144,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
           {step === 3 && (
             <div className="step-content">
               <StepCard step="Step 3: Paste Import URL"
-                instruction="Make sure the URL starts with 'https://localhost:5173/' and ends with your game ID."
+                instruction="Make sure the URL is an API call; it should generate JSON."
               />              
               <div className="form-group">
                 <label htmlFor="importUrl">Import URL:</label>
@@ -173,6 +187,57 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
               </div>
             </div>
           )}
+
+          {step === 4 && importResults && (
+            <div className="step-content">
+              <StepCard step="Import Complete!"
+                instruction="Your wish history has been successfully imported."
+              />
+              
+              <div className="import-results">
+                <h4>Import Results:</h4>
+                <div className="results-grid">
+                  <div className="result-item">
+                    <span className="result-label">Imported:</span>
+                    <span className="result-value">{importResults.imported}</span>
+                  </div>
+                  <div className="result-item">
+                    <span className="result-label">Skipped:</span>
+                    <span className="result-value">{importResults.skipped}</span>
+                  </div>
+                  <div className="result-item">
+                    <span className="result-label">Failed:</span>
+                    <span className="result-value">{importResults.failed}</span>
+                  </div>
+                </div>
+
+                {Object.keys(importResults.banners).length > 0 && (
+                  <div className="banner-results">
+                    <h5>By Banner:</h5>
+                    {Object.entries(importResults.banners).map(([banner, count]) => (
+                      <div key={banner} className="banner-result">
+                        <span>{banner}:</span>
+                        <span>{count as number} wishes</span>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="step-actions">
+                <button 
+                  type="button"
+                  onClick={() => {
+                    onClose();
+                    setStep(1);
+                  }}
+                  className="btn step-btn"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          )}
         </div>
 
         <div className="modal-footer">
@@ -180,6 +245,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
             <div className={`step-dot ${step >= 1 ? 'active' : ''}`}>1</div>
             <div className={`step-dot ${step >= 2 ? 'active' : ''}`}>2</div>
             <div className={`step-dot ${step >= 3 ? 'active' : ''}`}>3</div>
+            {step === 4 && <div className="step-dot active">✓</div>}
           </div>
         </div>
       </div>

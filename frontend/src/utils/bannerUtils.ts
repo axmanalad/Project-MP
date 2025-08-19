@@ -1,31 +1,39 @@
+import { wishBannerTypes } from "../data/wishStats";
 import type { BannerFilterType, BannerNames, BannerTypeMapping } from "../types/banner";
 
 export const bannerTypeMap: BannerTypeMapping = {
-  'character': 'character',
-  'weapon': 'weapon',
-  'standard': 'standard'
+  CHARACTER: 'CHARACTER',
+  WEAPON: 'WEAPON',
+  STANDARD: 'STANDARD'
 };
 
 export const bannerDisplayNames: BannerNames = {
-  'character': 'Character',
-  'weapon': 'Weapon',
-  'standard': 'Standard',
-  'all': 'All'
+  'CHARACTER': 'Character',
+  'WEAPON': 'Weapon',
+  'STANDARD': 'Standard',
+  'ALL': 'All'
 };
 
 export const getBannerFilter = (banner: string): BannerFilterType => {
   return bannerTypeMap[banner];
 };
 
-export const getBannerDisplayName = (banner: BannerFilterType): string => {
-  return bannerDisplayNames[banner];
+export const getBannerDisplayName = (gachaType: string, gameName?: string): string => {
+  if (!gameName) {
+    return gachaType;
+  }
+  const gameBanners = wishBannerTypes[gameName];
+  const bannerName = gameBanners[gachaType];
+
+  return bannerName || gachaType;
 };
 
-export const getFilteredWishesByBanner = <T extends { gachaType: string }> (
+export const getFilteredWishesByBanner = <T extends { gachaType: string; bannerId: string }> (
   wishes: T[],
-  bannerFilter: BannerFilterType
+  bannerFilter: BannerFilterType,
+  bannerId: string,
 ): T[] => {
-  return bannerFilter === 'all'
+  return bannerFilter === 'ALL'
     ? wishes
-    : wishes.filter(wish => wish.gachaType === bannerFilter);
+    : wishes.filter(wish => wish.bannerId === bannerId);
 };

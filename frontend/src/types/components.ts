@@ -15,7 +15,8 @@ export interface GameHeaderProps {
 }
 
 export interface WishTrackerProps {
-  gameId: number;
+  gameName: string;
+  userGameId: string;
 }
 
 export interface ComingSoonDashboardProps {

@@ -1,9 +1,6 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
   output   = "../generated/prisma"
@@ -12,4 +9,149 @@ generator client {
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @unique @default(uuid())
+  email     String   @unique
+  username  String   @unique
+  password  String   @default("hash_password") // Will remove default later.
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  // Relations
+  userGames UserGame[]
+
+  @@map("users")
+}
+
+model Game {
+  id          String   @id @default(uuid())
+  name        String   @unique // Ex. "genshin-impact"
+  title       String // Ex. "Genshin Impact"
+  author      String // Ex. "miHoYo"
+  releaseDate DateTime @map("release_date")
+  imageUrl    String   @map("image_url")
+  bgImageUrl  String   @map("bg_image_url")
+  websiteUrl  String   @map("website_url")
+  isAvailable Boolean  @default(true) @map("is_available")
+
+  // Relations
+  banners   Banner[]
+  userGames UserGame[]
+
+  @@map("games")
+}
+
+model UserGame {
+  id         String    @id @default(uuid())
+  userId     String    @map("user_id")
+  gameId     String    @map("game_id")
+  nickname   String?
+  server     String?
+  uid        String?
+  lastImport DateTime?
+
+  // Relations
+  user         User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game         Game            @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  wishes       Wish[]
+  pityCounters PityCounter[]
+  stats        UserWishStats[]
+
+  @@unique([userId, gameId])
+  @@map("user_games")
+}
+
+model Banner {
+  id        String     @id @default(uuid())
+  gameId    String     @map("game_id")
+  name      String // Ex. "Character Event Wish"
+  type      String // Ex. "CHARACTER"
+  gachaType String     @map("gacha_type") // Ex. "301" - character event wish
+  maxPity   Int        @default(90) @map("max_pity")
+  softPity  Int        @default(74) @map("soft_pity")
+  isActive  Boolean    @default(true) @map("is_active")
+
+  // Relations
+  game          Game            @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  wishes        Wish[]
+  pityCounters  PityCounter[]
+  UserWishStats UserWishStats[]
+
+  @@unique([gameId, type])
+  @@map("banners")
+}
+
+model Wish {
+  id         String   @id @default(uuid())
+  userGameId String   @map("user_game_id")
+  bannerId   String   @map("banner_id")
+  gameWishId String   @unique @map("game_wish_id")
+  wishNumber Int      @map("wish_number")
+  gachaType  String   @map("gacha_type")
+  time       DateTime
+  name       String
+  lang       String   @default("en")
+  itemType   String   @map("item_type")
+  rarity     String
+
+  // Calculated fields
+  pityCount    Int      @default(0) @map("pity_count")
+  isGuaranteed Boolean? @default(false) @map("is_guaranteed")
+  isWin        Boolean? @map("is_win")
+
+  // Metadata
+  importedAt DateTime @default(now()) @map("imported_at")
+
+  // Relations
+  userGame UserGame @relation(fields: [userGameId], references: [id], onDelete: Cascade)
+  banner   Banner   @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+
+  @@unique([userGameId, gameWishId])
+  @@index([userGameId, bannerId, time])
+  @@index([userGameId, time])
+  @@map("wishes")
+}
+
+model PityCounter {
+  id           String    @id @default(uuid())
+  userGameId   String    @map("user_game_id")
+  bannerId     String    @map("banner_id")
+  current      Int       @default(0)
+  max          Int       @default(90)
+  guaranteed   Boolean   @default(false)
+  lastFiveStar DateTime? @map("last_five_star")
+  updatedAt    DateTime  @updatedAt @map("updated_at")
+
+  // Relations
+  userGame UserGame @relation(fields: [userGameId], references: [id], onDelete: Cascade)
+  banner   Banner   @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+
+  @@unique([userGameId, bannerId])
+  @@map("pity_counters")
+}
+
+model UserWishStats {
+  id                String   @id @default(uuid())
+  userGameId        String   @map("user_game_id")
+  bannerId          String   @map("banner_id")
+  totalWishes       Int      @default(0) @map("total_wishes")
+  fiveStarCount     Int      @default(0) @map("five_star_count")
+  fourStarCount     Int      @default(0) @map("four_star_count")
+  avgFiveStarPity   Float    @map("avg_five_star_pity")
+  avgFourStarPity   Float    @map("avg_four_star_pity")
+  fiveStarWLRatio   Float[]  @map("five_star_win_loss_ratio")
+  longestWinStreak  Int      @default(0) @map("longest_win_streak")
+  longestLossStreak Int      @default(0) @map("longest_loss_streak")
+  currentWinStreak  Int      @default(0) @map("current_win_streak")
+  currentLossStreak Int      @default(0) @map("current_loss_streak")
+  lastCalculated    DateTime @updatedAt @map("last_calculated")
+
+  // Relations
+  userGame UserGame @relation(fields: [userGameId], references: [id], onDelete: Cascade)
+  banner   Banner   @relation(fields: [bannerId], references: [id], onDelete: Cascade)
+
+  @@unique([userGameId, bannerId])
+  @@map("user_wish_stats")
 }

@@ -4,10 +4,9 @@ import { useMemo, useState } from "react";
 import WishFilters from "./WishFilters";
 import EmptyWishState from "./EmptyWishState";
 import WishItem from "./WishItem";
-import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 import Pagination from "../Pagination";
 
-const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecent, selectedBanner, onClearFilter, isFiltered = false }) => {
+const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, gameName, onBackToRecent, selectedBanner, onClearFilter, isFiltered = false }) => {
   const [filters, setFilters] = useState<WishFilterTypes>({
     rarity: 'all',
     itemType: 'all',
@@ -20,23 +19,30 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
     let filtered = [...wishes];
 
     if (filters.rarity !== 'all') {
-      filtered = filtered.filter(wish => wish.rarity === Number(filters.rarity));
+      filtered = filtered.filter(wish => Number(wish.rarity) === Number(filters.rarity));
     }
     if (filters.itemType !== 'all') {
       filtered = filtered.filter(wish => wish.itemType.toLowerCase() === filters.itemType);
     }
 
     filtered.sort((a, b) => {
-      // If sorted by date, use dates
-      // const aDate = new Date(a.timestamp).getTime();
-      // const bDate = new Date(b.timestamp).getTime();
+      const aDate = new Date(a.time).getTime();
+      const bDate = new Date(b.time).getTime();
       switch (filters.sortBy) {
         case 'newest':
-          return b.id - a.id;
+          if (aDate !== bDate) {
+            return bDate - aDate;
+          }
+          // If times are equal, sort by wish number descending.
+          return b.wishNumber - a.wishNumber;
         case 'oldest':
-          return a.id - b.id;
+          if (aDate !== bDate) {
+            return aDate - bDate;
+          }
+          // If times are equal, sort by wish number ascending.
+          return a.wishNumber - b.wishNumber;
         case 'rarity':
-          return b.rarity - a.rarity;
+          return Number(b.rarity) - Number(a.rarity);
         default:
           return 0;
       }
@@ -54,10 +60,12 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
   const rarityStats = useMemo(() => {
     const stats = { 3: 0, 4: 0, 5: 0, total: wishes.length};
     wishes.forEach(wish => {
-      stats[wish.rarity as 3 | 4 | 5]++;
+      stats[wish.rarity as '3' | '4' | '5']++;
     });
     return stats;
   }, [wishes]);
+
+  const normalizedBannerName = selectedBanner ? selectedBanner.charAt(0) + selectedBanner.slice(1).toLowerCase() + " Banner" : "";
 
   return (
     <div className="full-wish-history">
@@ -72,7 +80,7 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
           </button>
           <h3>
             {
-              isFiltered && selectedBanner ? `Full ${getBannerDisplayName(selectedBanner)} Banner Wish History` : "Full Wish History"
+              isFiltered && selectedBanner ? `Full ${normalizedBannerName} Wish History` : "Full Wish History"
             }
           </h3>
         </div>
@@ -103,14 +111,14 @@ const FullWishHistory: React.FC<FullWishHistoryProps> = ({ wishes, onBackToRecen
 
       {filteredWishes.length === 0 ? (
         <EmptyWishState message={isFiltered ?
-          `No ${selectedBanner ? getBannerDisplayName(selectedBanner) + " Banner" : ""} wishes match your filters` :
+          `No ${normalizedBannerName} wishes match your filters` :
           "No wishes match your filters."} showIcon={false} 
         />
       ) : (
         <>
           <div className="wish-history full">
             {paginatedWishes.map((wish) => (
-              <WishItem key={wish.id} wish={wish} compact={false} />
+              <WishItem key={wish.gameWishId} wish={wish} compact={false} gameName={gameName} />
             ))}
           </div>
 

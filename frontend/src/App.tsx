@@ -8,24 +8,27 @@ import GamePage from './pages/games/GamePage';
 import Navbar from './components/Navbar';
 import { GameProvider } from './contexts/GameProvider';
 import AddGame from './pages/AddGame';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
-    <GameProvider>
-      <header className="flex">
-        <Navbar />
-      </header>
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/my-games" element={<MyGames />} />
-          <Route path="/game/:gameTitle" element={<GamePage />} />
-          <Route path="/add-game" element={<AddGame />} />
-        </Routes>
-      </main>
-    </GameProvider>
+    <AuthProvider>
+      <GameProvider>
+        <header className="flex">
+          <Navbar />
+        </header>
+        <main className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/my-games" element={<MyGames />} />
+            <Route path="/game/:gameTitle" element={<GamePage />} />
+            <Route path="/add-game" element={<AddGame />} />
+          </Routes>
+        </main>
+      </GameProvider>
+    </AuthProvider>
   );
 }
 

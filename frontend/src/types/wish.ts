@@ -1,21 +1,13 @@
 import type { BannerFilterType } from "./banner";
+import { WishItem } from "../../../shared/types";
 
-type gameId = number;
+type gameName = string;
 
-export interface WishItem {
-  id: number;
-  gachaType: 'character' | 'weapon' | 'standard';
-  itemName: string;
-  itemType: string;
-  rarity: number;
-  pityCount: number;
-  timestamp: string;
-  isWLGuarantee: 'Win' | 'Loss' | 'Guaranteed' | 'None';
-};
 
 export interface WishItemProps {
   wish: WishItem;
   compact?: boolean;
+  gameName?: string;
 };
 
 export type WishView = 'recent' | 'full';
@@ -23,10 +15,9 @@ export type WishView = 'recent' | 'full';
 export interface WishHeaderProps {
   currentView: WishView;
   onViewChange: (view: WishView) => void;
-  showSampleData: boolean;
-  onToggleSampleData: () => void;
   totalWishes: number;
-  gameId: gameId;
+  userGameId: string;
+  gameName: string;
 };
 
 type WishStatType = 'regular' | 'average' | 'streak' | 'ratio';
@@ -43,10 +34,13 @@ export interface WishStatLabels {
 };
 
 export interface WishStatsProps {
-  gameId: gameId;
+  gameId: string;
+  gameName: string;
+  bannerId: string;
   wishes: WishItem[];
-  selectedBanner?: BannerFilterType;
+  selectedBanner?: string;
   isFiltered?: boolean;
+  isLoading?: boolean;
 };
 
 export interface WishStatsData {
@@ -56,7 +50,7 @@ export interface WishStatsData {
   type: WishStatType;
 }
 
-export type WishStatsRecord = Record<gameId, WishStatsData[]>;
+export type WishStatsRecord = Record<gameName, WishStatsData[]>;
 
 interface WishCostData {
   single: number;
@@ -64,12 +58,11 @@ interface WishCostData {
   currency: string; // e.g. 'primogems', 'fates'
 }
 
-export type WishCostRecord = Record<gameId, WishCostData>;
+export type WishCostRecord = Record<gameName, WishCostData>;
 
 export interface WishFilterTypes {
   rarity: 'all' | '3' | '4' | '5';
   itemType: 'all' | 'character' | 'weapon';
-  // TODO: Filter by banner: e.g. bannerType: 'character' | 'weapon' | 'standard';
   sortBy: 'newest' | 'oldest' | 'rarity';
 };
 
@@ -85,10 +78,11 @@ interface WishImportInfo {
   steps: string[];
 }
 
-export type WishImportRecord = Record<gameId, WishImportInfo>;
+export type WishImportRecord = Record<gameName, WishImportInfo>;
 
 export interface RecentWishHistoryProps {
   wishes: WishItem[];
+  gameName: string;
   onViewAll: () => void;
   selectedBanner?: BannerFilterType;
   onClearFilter?: () => void;
@@ -97,6 +91,7 @@ export interface RecentWishHistoryProps {
 
 export interface FullWishHistoryProps {
   wishes: WishItem[];
+  gameName: string;
   onBackToRecent: () => void;
   selectedBanner?: BannerFilterType;
   onClearFilter?: () => void;
@@ -109,21 +104,24 @@ export interface EmptyWishStateProps {
 };
 
 interface PityCounter {
-  bannerType: string;
+  gachaType: string;
   current: number;
   max: number;
   guaranteed: boolean;
 };
 
 export interface PityCardProps extends PityCounter {
+  userGameId: string;
   onClick?: () => void;
   isSelected?: boolean;
+  isLoading?: boolean;
 };
 
-export type PityStatsRecord = Record<gameId, PityCounter[]>;
+export type PityStatsRecord = Record<gameName, PityCounter[]>;
 
 export interface WishImportInstructionsProps {
-  gameId: gameId;
+  userGameId: string;
+  gameName: string;
   onClose: () => void;
   isOpen: boolean;
 };
@@ -133,3 +131,10 @@ export interface StepCardProps {
   instruction?: string;
   instructionList?: string[];
 }
+
+export type WishBannerProps = Record<string, string>;
+
+/* Wishes will associate with the following format to identify their origin:
+gameName: { gachaType: string, bannerName: string }
+*/
+export type WishBannerRecord = Record<string, WishBannerProps>;

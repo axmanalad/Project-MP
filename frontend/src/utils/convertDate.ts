@@ -3,9 +3,9 @@ export function convertDate(date: Date): string  {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
+    hour: 'numeric',
+    minute: 'numeric',
+    second: 'numeric',
     hour12: true,
     // Localize timezone to user's timezone
     timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone, 

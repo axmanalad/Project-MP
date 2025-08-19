@@ -1,0 +1,40 @@
+import { PrismaClient } from '@prisma';
+import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+
+const prisma = new PrismaClient();
+const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
+
+export class AuthService {
+  static async login(email: string, password: string) {
+    const user = await prisma.user.findUnique({ where: { email }});
+    if (!user) return null;
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    // Implement password logic later. Keep using test sample instead.
+    // const isPasswordValid = await bcrypt.compare(password, user.password);
+    // if (!isPasswordValid) return null;
+    return { user, token };
+  }
+
+  static async register(email: string, username: string, password: string) {
+    const existingUser = await prisma.user.findUnique({ where: { email } });
+    if (existingUser) throw new Error('User already exists');
+    // Implement password logic later. Keep using test sample instead.
+    // const hashedPassword = await bcrypt.hash(password, 10);
+    // if (!hashedPassword) throw new Error('Failed to hash password');
+    const user = await prisma.user.create({
+      data: { email, username, password }
+    });
+
+    const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
+    return { user, token };
+  }
+
+  static validateToken(token: string) {
+    try {
+      return jwt.verify(token, JWT_SECRET) as { userId: string };
+    } catch (error) {
+      return null;
+    }
+  }
+}

@@ -1,61 +1,62 @@
-import type { PityStatsRecord, WishCostRecord, WishImportRecord, WishStatsRecord } from "../types";
+import type { PityStatsRecord, WishBannerRecord, WishCostRecord, WishImportRecord, WishStatsRecord } from "../types";
 
 export const pityStats: PityStatsRecord = {
-  101: [
+  // The stats (current, max, and guaranteed) are placeholders
+  'genshin-impact': [
     {
-      bannerType: 'Character',
-      current: 45,
-      max: 90,
-      guaranteed: true
-    },
-    {
-      bannerType: 'Weapon',
-      current: 68,
-      max: 80,
-      guaranteed: false
-    },
-    {
-      bannerType: 'Standard',
-      current: 23,
-      max: 90,
-      guaranteed: false
-    }
-  ],
-  102: [
-    {
-      bannerType: 'Character',
+      gachaType: 'CHARACTER',
       current: 0,
       max: 90,
       guaranteed: false
     },
     {
-      bannerType: 'Weapon',
+      gachaType: 'WEAPON',
       current: 0,
       max: 80,
       guaranteed: false
     },
     {
-      bannerType: 'Standard',
+      gachaType: 'STANDARD',
       current: 0,
       max: 90,
       guaranteed: false
     }
   ],
-  103: [
+  'honkai-star-rail': [
     {
-      bannerType: 'Character',
+      gachaType: 'CHARACTER',
       current: 0,
       max: 90,
       guaranteed: false
     },
     {
-      bannerType: 'Weapon',
+      gachaType: 'WEAPON',
       current: 0,
       max: 80,
       guaranteed: false
     },
     {
-      bannerType: 'Standard',
+      gachaType: 'STANDARD',
+      current: 0,
+      max: 90,
+      guaranteed: false
+    }
+  ],
+  'wuthering-waves': [
+    {
+      gachaType: 'CHARACTER',
+      current: 0,
+      max: 90,
+      guaranteed: false
+    },
+    {
+      gachaType: 'WEAPON',
+      current: 0,
+      max: 80,
+      guaranteed: false
+    },
+    {
+      gachaType: 'STANDARD',
       current: 0,
       max: 90,
       guaranteed: false
@@ -65,7 +66,7 @@ export const pityStats: PityStatsRecord = {
 
 export const wishStats: WishStatsRecord = {
   // Game ID 101
-  101: [
+  'genshin-impact': [
     {
       label: 'Total Wishes',
       value: 0, // Placeholder for total wishes
@@ -109,7 +110,7 @@ export const wishStats: WishStatsRecord = {
     }
   ],
   // Game ID 102
-  102: [
+  'honkai-star-rail': [
     {
       label: 'Total Warps',
       value: 0, // Placeholder for total warps
@@ -153,7 +154,7 @@ export const wishStats: WishStatsRecord = {
     }
   ],
   // Game ID 103
-  103: [
+  'wuthering-waves': [
     {
       label: 'Total Wishes',
       value: 0, // Placeholder for total wishes
@@ -199,17 +200,17 @@ export const wishStats: WishStatsRecord = {
 };
 
 export const wishCostData: WishCostRecord = {
-  101: {
+  'genshin-impact': {
     single: 160,
     ten: 1600,
     currency: 'Primogems'
   },
-  102: {
+  'honkai-star-rail': {
     single: 160,
     ten: 1600,
     currency: 'Stellar Jades'
   },
-  103: {
+  'wuthering-waves': {
     single: 160,
     ten: 1600,
     currency: 'Astrites'
@@ -217,9 +218,9 @@ export const wishCostData: WishCostRecord = {
 };
 
 export const wishImportData: WishImportRecord = {
-  101: {
+  'genshin-impact': {
     gameName: 'Genshin Impact',
-    scriptName: 'genshin-wish-export',
+    scriptName: 'genshin-wish-import',
     steps: [
       '- Open Genshin Impact and log in to your account',
       '- Navigate to the Wish History page in-game',
@@ -227,7 +228,7 @@ export const wishImportData: WishImportRecord = {
       '- Keep this page open in the background'
     ]
   },
-  102: {
+  'honkai-star-rail': {
     gameName: 'Honkai: Star Rail',
     scriptName: 'hsr-warp-export',
     steps: [
@@ -238,3 +239,24 @@ export const wishImportData: WishImportRecord = {
     ]
   }
 }
+
+export const wishBannerTypes: WishBannerRecord = {
+  'genshin-impact': {
+    '301': 'Character',
+    '400': 'Character',
+    '302': 'Weapon',
+    '200': 'Standard'
+  },
+  // Needs verification
+  'honkai-star-rail': {
+    '301': 'Character',
+    '302': 'Lightcone',
+    '200': 'Standard'
+  },
+  // Needs verification
+  'wuthering-waves': {
+    '301': 'Character',
+    '302': 'Weapon',
+    '200': 'Standard'
+  }
+};

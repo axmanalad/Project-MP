@@ -5,19 +5,18 @@ import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 import "../../../../styles/components/games/shared/WishTracker/wish-items.css";
 
 
-const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
-  const getWLGuaranteeClass = (wlGuarantee: string) => {
-    switch (wlGuarantee.toLowerCase()) {
-      case 'win':
-        return 'wlg-win';
-      case 'loss':
-        return 'wlg-loss';
-      case 'guaranteed':
-        return 'wlg-guaranteed';
-      default:
-        return '';
+const WishItem: React.FC<WishItemProps> = ({ wish, compact = false, gameName }) => {
+  const getWLGuaranteeClass = (isWin: boolean, isGuarantee: boolean) => {
+    if (wish.rarity === '5' && getBannerDisplayName(wish.gachaType, gameName) !== 'Standard') {
+      if (isGuarantee) {
+        return ['wlg-guaranteed', <span key="guaranteed">Guaranteed</span>];
+      }
+      return isWin ? ['wlg-win', <span key="win">Win</span>] : ['wlg-loss', <span key="loss">Loss</span>];
     }
+    return ['', ''];
   }
+
+  const [wlClass, wlText] = getWLGuaranteeClass(wish.isWin ?? false, wish.isGuaranteed ?? false);
 
   return (
     <div className={`wish-item ${compact ? 'compact' : 'detailed'}`}>
@@ -25,10 +24,10 @@ const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
         <div className={`wish-item-rarity rarity-${String(wish.rarity)}`}></div>
         <div className={"wish-details"}>
           <div className="flex flex-row gap-2 items-center">
-            <div className="wish-item-name">{wish.itemName}</div>
-            <div className="wish-item-number">#{wish.id}</div>
-            {!compact && wish.isWLGuarantee !== 'None' && (
-              <div className={`wish-item-WLG ${getWLGuaranteeClass(wish.isWLGuarantee)}`}>{wish.isWLGuarantee} </div>
+            <div className="wish-item-name">{wish.name}</div>
+            <div className="wish-item-number">#{wish.wishNumber}</div>
+            {!compact && (
+              <div className={`wish-item-WLG ${wlClass}`}>{wlText}</div>
             )}
           </div>
           <div className="wish-item-meta">
@@ -39,11 +38,11 @@ const WishItem: React.FC<WishItemProps> = ({ wish, compact = false }) => {
                 <span className="wish-item-rarity-text">{wish.rarity}★</span>
               </div>
             )}
-            <span className="wish-item-gacha-type">{`${getBannerDisplayName(wish.gachaType)} Banner`}</span>
+            <span className="wish-item-gacha-type">{`${getBannerDisplayName(wish.gachaType, gameName)} Banner`}</span>
           </div>
         </div>
       </div>
-      <div className="wish-item-date">{convertDate(new Date(wish.timestamp))}</div>
+      <div className="wish-item-date">{convertDate(new Date(wish.time))}</div>
     </div>
   );
 };

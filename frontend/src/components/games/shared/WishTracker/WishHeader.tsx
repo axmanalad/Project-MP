@@ -7,10 +7,9 @@ import "../../../../styles/components/games/shared/WishTracker/view-controls.css
 const WishHeader: React.FC<WishHeaderProps> = ({
   currentView,
   onViewChange,
-  showSampleData,
-  onToggleSampleData,
   totalWishes,
-  gameId
+  userGameId,
+  gameName
 }) => {
   const [showImportModal, setShowImportModal] = useState(false);
 
@@ -41,13 +40,6 @@ const WishHeader: React.FC<WishHeaderProps> = ({
         <div className="flex items-center gap-1">
           <button
             type="button"
-            className="btn btn-outline text-sm px-4 py-2"
-            onClick={onToggleSampleData}
-          >
-            {showSampleData ? 'Hide Sample' : 'Show Sample'}
-          </button>
-          <button
-            type="button"
             className="btn btn-primary"
             onClick={() => {setShowImportModal(true)}}
           >
@@ -59,7 +51,8 @@ const WishHeader: React.FC<WishHeaderProps> = ({
       <WishImportModal
         isOpen={showImportModal}
         onClose={() => {setShowImportModal(false)}}
-        gameId={gameId}
+        userGameId={userGameId}
+        gameName={gameName}
       />
     </>
   );

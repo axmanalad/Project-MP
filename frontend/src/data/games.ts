@@ -3,6 +3,7 @@ import type { Game } from "../types";
 export const games: Game[] = [
   { 
     id: 101, 
+    name: "genshin-impact",
     title: "Genshin Impact", 
     author: "miHoYo",
     releaseDate: "2020-09-28", 
@@ -13,6 +14,7 @@ export const games: Game[] = [
   },
   {
     id: 102,
+    name: "honkai-star-rail",
     title: "Honkai Star Rail",
     author: "miHoYo",
     releaseDate: "2023-04-26",
@@ -23,6 +25,7 @@ export const games: Game[] = [
   },
   {
     id: 103,
+    name: 'wuthering-waves',
     title: "Wuthering Waves",
     author: "Kuro Games",
     releaseDate: "2024-05-23",

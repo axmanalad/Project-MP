@@ -10,7 +10,10 @@ export const login = async (req: Request, res: Response) => {
     const result = await AuthService.login(email, password);
     
     if (!result) {
-      return res.status(401).json({ success: false, message: 'Invalid credentials' });
+      return res.status(401).json({ success: false, data: { message: 'Invalid credentials' }});
+    }
+    if (!result.success) {
+      return res.json({ success: false, data: { message: result.message }});
     }
 
     res.json({

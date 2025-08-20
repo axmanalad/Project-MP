@@ -19,8 +19,10 @@ export const register = async (email: string, username: string, password: string
   if (response.data.success) {
     localStorage.setItem(TOKEN_KEY, response.data.data.token);
     localStorage.setItem(USER_KEY, JSON.stringify(response.data.data.user));
+    return response.data;
+  } else {
+    return response.data.message;
   }
-  return response.data;
 };
 
 // Logout

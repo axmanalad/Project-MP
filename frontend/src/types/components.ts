@@ -1,4 +1,11 @@
+import { ReactNode } from "react";
 import type { Game } from "./game";
+
+export interface DropdownProps {
+  trigger: ReactNode;
+  children: ReactNode;
+  className?: string;
+}
 
 export interface GenshinDashboardProps {
   game: Game;

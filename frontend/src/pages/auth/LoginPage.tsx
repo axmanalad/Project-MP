@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
 import '../../styles/pages/auth/login.css';
 import { type ValidationError, type AuthFormField, type BaseAuthFormData } from '../../types/auth';
 import { validateLoginForm } from '../../utils/auth/validation';
+import { login } from '../../api/authService';
+import { useAuth } from '../../contexts/AuthContext';
 
 const LoginPage: React.FC = () => {
+  const { login } = useAuth();
   const [formData, setFormData] = useState<BaseAuthFormData>({
     email: '',
     password: ''
@@ -13,6 +16,8 @@ const LoginPage: React.FC = () => {
   
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from || '/my-games';
 
   const loginFields: AuthFormField[] = [
     {
@@ -31,19 +36,33 @@ const LoginPage: React.FC = () => {
     }
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const validationErrors = validateLoginForm(formData);
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
     } else {
-      // Handle the login logic, e.g., API call
-    console.log('Login submitted:', formData);
-    // If login is successful, navigate to the home page or another page
-    void navigate('/my-games');
+      try {
+        // Use the login function from context instead
+        const response = await login(formData.email, formData.password);
+        if (response.success) {
+          // Now navigation will work because context has been updated
+          navigate(from);
+        } else {
+          if (response.message?.includes('Email')) {
+            setErrors([{ field: 'email', message: `${response.message} Please register first.` }]);
+          } else {
+            setErrors([{ field: 'password', message: `${response.message} Please try again.`}])
+          }
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        setErrors([{ field: 'password', message: 'An error occurred during login.' }]);
+      }
     }
   };
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({

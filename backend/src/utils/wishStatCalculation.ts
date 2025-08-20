@@ -83,7 +83,7 @@ function getCurrentStreak<T extends WishItem>(fiveStarWishes: T[], type: boolean
   if (fiveStarWishes.length === 0) {
     return 0;
   }
-  const sortedWishes = sortFiveStarWishes(fiveStarWishes);
+  const sortedWishes = sortFiveStarWishes(fiveStarWishes, false);
 
   let count = 0;
 
@@ -104,7 +104,7 @@ function getCurrentStreak<T extends WishItem>(fiveStarWishes: T[], type: boolean
 /**
  * Calculates the longest streak of 5-star wishes based on the type.
  * @param fiveStarWishes The list of 5-star wishes
- * @param type The type of streak to calculate
+ * @param type The type of streak to calculate (Win: True or Loss: False)
  * @returns The longest streak count for the specified type
  */
 function getLongestStreak<T extends WishItem>(fiveStarWishes: T[], type: boolean): number {
@@ -116,11 +116,11 @@ function getLongestStreak<T extends WishItem>(fiveStarWishes: T[], type: boolean
   }
 
   // Start counting from the first wish
-  const sortedWishes = sortFiveStarWishes(fiveStarWishes);
+  const sortedWishes = sortFiveStarWishes(fiveStarWishes, true);
 
   for (const wish of sortedWishes) {
     const isType = wish.isWin === type;
-    if (isType) {
+    if (isType && wish.isGuaranteed === false) {
       currentTypeStreak++;
     } else if (wish.isGuaranteed === true) {
       continue; // Skip guaranteed wishes
@@ -143,15 +143,22 @@ function getLongestStreak<T extends WishItem>(fiveStarWishes: T[], type: boolean
 /**
  * Sorts 5-star wishes by time and wish number.
  * @param fiveStarWishes The list of 5-star wishes to sort
+ * @param isAscending Whether to sort in ascending order (true) or descending order (false)
  * @returns The sorted list of 5-star wishes
  */
-function sortFiveStarWishes<T extends WishItem>(fiveStarWishes: T[]): T[] {
+function sortFiveStarWishes<T extends WishItem>(fiveStarWishes: T[], isAscending: boolean): T[] {
   return fiveStarWishes.sort((a, b) => {
     const aDate = new Date(a.time).getTime();
     const bDate = new Date(b.time).getTime();
-    if (aDate !== bDate) {
-      return bDate - aDate;
+    if (!isAscending) {
+      if (aDate !== bDate) {
+        return bDate - aDate;
+      }
+      return b.wishNumber - a.wishNumber;
     }
-    return b.wishNumber - a.wishNumber;
+    if (aDate !== bDate) {
+      return aDate - bDate;
+    }
+    return a.wishNumber - b.wishNumber;
   });
 }

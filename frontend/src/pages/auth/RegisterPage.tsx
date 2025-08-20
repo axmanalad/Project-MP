@@ -3,8 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
 import type { AuthFormField, RegisterFormData, ValidationError } from '../../types/auth';
 import { validateRegisterForm } from '../../utils/auth/validation';
+import { useAuth } from '../../contexts/AuthContext';
 
 const RegisterPage: React.FC = () => {
+  const { register } = useAuth();
   const [formData, setFormData] = useState({
     username: '',
     email: '',
@@ -46,19 +48,29 @@ const RegisterPage: React.FC = () => {
     },
   ];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     // Validate form data
     const validationErrors = validateRegisterForm(formData);
     if (validationErrors.length > 0) {
       setErrors(validationErrors);
-      console.log('Validation errors:', validationErrors);
     } else {
       // Handle the registration logic, e.g., API call
       console.log('Registration submitted:', formData);
-      // If registration is successful, navigate to the login page or another page
-      void navigate('/login');
+      try {
+        const response = await register(formData.email, formData.username, formData.password);
+        if (response.success) {
+          navigate('/my-games');
+        } else {
+          if (response.message) {
+            setErrors([{ field: 'email', message: `${response.message} Please use another email.` }]);
+          }
+        }
+      } catch (err) {
+        console.error('Registration error:', err);
+        setErrors([{ field: 'confirmPassword', message: 'An error occurred during registration.' }]);
+      }
     }
   }
 

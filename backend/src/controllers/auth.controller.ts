@@ -16,7 +16,7 @@ export const login = async (req: Request, res: Response) => {
       return res.json({ success: false, data: { message: result.message }});
     }
 
-    res.json({
+    res.status(200).json({
       success: true,
       data: {
         user: {
@@ -36,6 +36,14 @@ export const register = async (req: Request, res: Response) => {
   try {
     const { email, username, password } = req.body;
     const result = await AuthService.register(email, username, password);
+
+    if (!result) {
+      return res.status(401).json({ success: false, data: { message: 'Invalid credentials' }});
+    }
+
+    if (!result.success) {
+      return res.json({ success: false, data: { message: result.message }});
+    }
 
     res.status(201).json({
       success: true,

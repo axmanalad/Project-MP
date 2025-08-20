@@ -4,7 +4,6 @@ import AuthForm from '../../components/auth/AuthForm';
 import '../../styles/pages/auth/login.css';
 import { type ValidationError, type AuthFormField, type BaseAuthFormData } from '../../types/auth';
 import { validateLoginForm } from '../../utils/auth/validation';
-import { login } from '../../api/authService';
 import { useAuth } from '../../contexts/AuthContext';
 
 const LoginPage: React.FC = () => {
@@ -44,10 +43,8 @@ const LoginPage: React.FC = () => {
       setErrors(validationErrors);
     } else {
       try {
-        // Use the login function from context instead
         const response = await login(formData.email, formData.password);
         if (response.success) {
-          // Now navigation will work because context has been updated
           navigate(from);
         } else {
           if (response.message?.includes('Email')) {
@@ -56,8 +53,8 @@ const LoginPage: React.FC = () => {
             setErrors([{ field: 'password', message: `${response.message} Please try again.`}])
           }
         }
-      } catch (error) {
-        console.error('Login error:', error);
+      } catch (err) {
+        console.error('Login error:', err);
         setErrors([{ field: 'password', message: 'An error occurred during login.' }]);
       }
     }

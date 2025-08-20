@@ -20,7 +20,7 @@ export class AuthService {
 
   static async register(email: string, username: string, password: string) {
     const existingUser = await prisma.user.findUnique({ where: { email } });
-    if (existingUser) throw new Error('User already exists');
+    if (existingUser) return { success: false, message: 'This email is already registered.'};
     // Implement password logic later. Keep using test sample instead.
     // const hashedPassword = await bcrypt.hash(password, 10);
     // if (!hashedPassword) throw new Error('Failed to hash password');
@@ -29,7 +29,7 @@ export class AuthService {
     });
 
     const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '7d' });
-    return { user, token };
+    return { success: true, user, token };
   }
 
   static validateToken(token: string) {

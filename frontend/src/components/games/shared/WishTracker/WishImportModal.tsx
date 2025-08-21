@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { wishImportData } from '../../../../data/wishStats';
 import type { WishImportInstructionsProps } from '../../../../types';
 import StepCard from '../StepCard';
-import axios from 'axios';
 import { importWishes } from '../../../../api/wishService';
 
 const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClose, userGameId, gameName }) => {
@@ -24,7 +23,6 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
 
   if (!isOpen) return null;
 
-  // TODO: Fix gameId for wishImportData
   const getGameInstructions = ( gameName: string ) => {
     return wishImportData[gameName];
   };
@@ -58,6 +56,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
     }
   };
 
+  // TODO: Fix styling for last step
   return (
     <div className="modal-overlay">
       <div className="modal-content wish-import-modal">

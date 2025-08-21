@@ -2,11 +2,14 @@ import "../styles/components/game-card.css";
 import type { GameCardProps } from "../types";
 import { convertDateWithoutTime } from "../utils/convertDate";
 import { useGameContext } from "../hooks/useGameContext";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 function GameCard({ game }: GameCardProps) {
-  const { isMyGame, addToMyGames, removeFromMyGames } = useGameContext();
+  const { isMyGame, addToMyGames, removeFromMyGames, loading } = useGameContext();
+  const [isProcessing, setIsProcessing] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
   const favorite = isMyGame(game.id);
 
   const isMyGames = location.pathname === '/my-games';
@@ -15,10 +18,20 @@ function GameCard({ game }: GameCardProps) {
   const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // Prevent card click when clicking favorite
     e.preventDefault();
-    if (favorite) {
-      removeFromMyGames(game.id);
-    } else {
-      addToMyGames(game);
+
+    if (isProcessing) return; // Prevent multiple clicks
+
+    try {
+      setIsProcessing(true);
+      if (favorite) {
+        removeFromMyGames(game.id);
+      } else {
+        addToMyGames(game);
+      }
+    } catch (err) {
+      console.error("Error updating favorite status:", err);
+    } finally {
+      setIsProcessing(false);
     }
   }
 
@@ -37,8 +50,8 @@ function GameCard({ game }: GameCardProps) {
         <img src={game.imageUrl} alt={game.title} className="game-image" />
         <div className="game-overlay">
           {isNotHome &&(
-            <button type="button" className={`favorite-button ${favorite ? 'active' : ''}`} onClick={handleFavoriteClick}>
-            ♥
+            <button type="button" className={`favorite-button ${favorite ? 'active' : ''} ${isProcessing ? 'loading' : ''}`} onClick={handleFavoriteClick} disabled={isProcessing || loading}>
+            {isProcessing ? '...' : '♥'}
           </button>)}
         </div>
       </div>

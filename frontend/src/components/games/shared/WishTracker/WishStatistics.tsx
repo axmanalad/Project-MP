@@ -42,6 +42,7 @@ const WishStatistics: React.FC<WishStatsProps> = ({
       try {
         setIsLoading(true);
         let response: any;
+        // TODO: Update API to accept all wish stats in one call instead of making redundant calls per banner
         if (isFiltered && bannerId) {
           response = await getUserBannerStats(gameName, gameId, bannerId);
         } else { 

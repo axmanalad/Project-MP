@@ -231,7 +231,6 @@ export class GenshinService {
     // URL Example: https://public-operation-hk4e-sg.hoyoverse.com/gacha_info/api/getGachaLog?win_mode=fullscreen&...end_id=0
     const apiUrl = new URL(`${preApiUrl}&${params.toString()}`);
     const response = await axios.get<GenshinWishResponse>(apiUrl.toString(), {
-      timeout: 10000,
       headers: { 'User-Agent': 'MaiPon/1.0' }
     });
     return response.data;

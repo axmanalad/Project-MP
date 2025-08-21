@@ -19,4 +19,5 @@ export interface GameContextType {
   addToMyGames: (game: Game) => void;
   removeFromMyGames: (gameId: Game["id"]) => void;
   isMyGame: (gameId: Game["id"]) => boolean;
+  loading: boolean;
 }

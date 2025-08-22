@@ -18,6 +18,7 @@ export interface WishHeaderProps {
   totalWishes: number;
   userGameId: string;
   gameName: string;
+  onRefreshWishes: () => Promise<void>;
 };
 
 type WishStatType = 'regular' | 'average' | 'streak' | 'ratio';
@@ -124,6 +125,7 @@ export interface WishImportInstructionsProps {
   gameName: string;
   onClose: () => void;
   isOpen: boolean;
+  onImportSuccess?: () => void;
 };
 
 export interface StepCardProps {

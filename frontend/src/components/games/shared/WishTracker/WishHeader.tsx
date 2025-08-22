@@ -9,7 +9,8 @@ const WishHeader: React.FC<WishHeaderProps> = ({
   onViewChange,
   totalWishes,
   userGameId,
-  gameName
+  gameName,
+  onRefreshWishes
 }) => {
   const [showImportModal, setShowImportModal] = useState(false);
 
@@ -53,6 +54,7 @@ const WishHeader: React.FC<WishHeaderProps> = ({
         onClose={() => {setShowImportModal(false)}}
         userGameId={userGameId}
         gameName={gameName}
+        onImportSuccess={onRefreshWishes}
       />
     </>
   );

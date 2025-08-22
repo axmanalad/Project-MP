@@ -4,7 +4,7 @@ import type { WishImportInstructionsProps } from '../../../../types';
 import StepCard from '../StepCard';
 import { importWishes } from '../../../../api/wishService';
 
-const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClose, userGameId, gameName }) => {
+const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClose, userGameId, gameName, onImportSuccess }) => {
   const [importUrl, setImportUrl] = useState('');
   const [step, setStep] = useState(1);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
@@ -227,6 +227,9 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
                 <button 
                   type="button"
                   onClick={() => {
+                    if (onImportSuccess) {
+                      onImportSuccess(); // Refreshes the wishes and pity stats
+                    }
                     onClose();
                     setStep(1);
                   }}

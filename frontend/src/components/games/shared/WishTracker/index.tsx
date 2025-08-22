@@ -82,6 +82,21 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
     }
   };
 
+  const refreshWishes = async () => {
+    try {
+      setLoading(true);
+      const response = await getUserWishes(gameName, userGameId);
+      setWishes(response.data);
+
+      const pityResponse = await getUserPityStats(gameName, userGameId);
+      setPityStats(pityResponse.data);
+    } catch (err) {
+      console.error("Failed to refresh wishes:", err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const renderWishHistory = () => {
     if (currentView === 'recent') {
       return (
@@ -119,6 +134,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
         totalWishes={isFiltered ? filteredWishes.length : wishes.length}
         userGameId={userGameId}
         gameName={gameName}
+        onRefreshWishes={refreshWishes}
       />
       <div className="pity-counters">
         {apiPityStats.map((stat) => {

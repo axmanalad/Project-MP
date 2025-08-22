@@ -136,7 +136,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
         gameName={gameName}
         onRefreshWishes={refreshWishes}
       />
-      <div className="pity-counters">
+      <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${apiPityStats.length} gap-6 mb-8`}>
         {apiPityStats.map((stat) => {
           const bannerType = stat.gachaType;
           const isSelected = selectedBanner === bannerType;

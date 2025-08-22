@@ -176,7 +176,7 @@ export class GenshinService {
           previousResponse = response;
           page++;
           // Rate limit
-          await new Promise(resolve => setTimeout(resolve, 1000));
+          await new Promise(resolve => setTimeout(resolve, 500));
         }
       }
 

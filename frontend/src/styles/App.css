@@ -1,3 +1,6 @@
+@import './components/index.css';
+@import './pages/index.css';
+@import './shared/Button.css';
 @import "tailwindcss";
 
 .main-content {

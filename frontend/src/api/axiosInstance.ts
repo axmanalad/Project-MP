@@ -5,8 +5,7 @@ const instance = axios.create({
   baseURL: (import.meta as any).env.REACT_APP_API_URL || 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
-  },
-  timeout: 10000
+  }
 });
 
 instance.interceptors.request.use(config => {

@@ -27,7 +27,6 @@ export const importWishes = async (gameName: string, userGameId: string, importU
     headers: {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${localStorage.getItem('auth_token')}`,
-      timeout: 10000
     }
   });
   return response.data;

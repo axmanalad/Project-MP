@@ -176,6 +176,47 @@
   @apply bg-purple-600 dark:bg-purple-500 text-white;
 }
 
+/* Import/Banner Results */
+.import-results {
+  @apply mt-6 text-center;
+}
+
+.import-results h4 {
+  @apply text-lg font-semibold underline text-gray-800 dark:text-gray-200 mb-4;
+}
+
+.results-grid {
+  @apply grid grid-cols-3 gap-4 mb-4;
+}
+
+.result-item {
+  @apply flex flex-col items-center;
+}
+
+.result-label {
+  @apply text-sm text-gray-600 dark:text-gray-400 mb-1;
+}
+
+.result-value {
+  @apply text-xl font-bold;
+}
+
+.banner-result {
+  @apply mt-2 text-center;
+}
+
+.banner-heading {
+  @apply font-semibold underline text-gray-800 dark:text-gray-200 mb-2;
+}
+
+.banner-name {
+  @apply font-medium text-gray-700 dark:text-gray-300;
+}
+
+.banner-stats {
+  @apply font-semibold text-gray-900 dark:text-gray-100;
+}
+
 /* Responsive */
 @media (max-width: 640px) {
   .wish-import-modal {

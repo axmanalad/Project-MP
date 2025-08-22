@@ -61,7 +61,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
     <div className="modal-overlay">
       <div className="modal-content wish-import-modal">
         <div className="modal-header">
-          <h2>Import {gameInstructions.gameName} Wish History</h2>
+          <h2>Import Wish History</h2>
           <button type="button" onClick={onClose} className="modal-close">×</button>
         </div>
 
@@ -194,29 +194,29 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
               />
               
               <div className="import-results">
-                <h4>Import Results:</h4>
+                <h4 className="results-heading">Import Results</h4>
                 <div className="results-grid">
                   <div className="result-item">
-                    <span className="result-label">Imported:</span>
-                    <span className="result-value">{importResults.imported}</span>
+                    <span className="result-label">Imported: </span>
+                    <span className="result-value text-green-500">{importResults.imported}</span>
                   </div>
                   <div className="result-item">
-                    <span className="result-label">Skipped:</span>
-                    <span className="result-value">{importResults.skipped}</span>
+                    <span className="result-label">Skipped: </span>
+                    <span className="result-value text-yellow-500">{importResults.skipped}</span>
                   </div>
                   <div className="result-item">
-                    <span className="result-label">Failed:</span>
-                    <span className="result-value">{importResults.failed}</span>
+                    <span className="result-label">Failed: </span>
+                    <span className="result-value text-red-500">{importResults.failed}</span>
                   </div>
                 </div>
 
                 {Object.keys(importResults.banners).length > 0 && (
                   <div className="banner-results">
-                    <h5>By Banner:</h5>
+                    <h5 className="banner-heading">By Banner:</h5>
                     {Object.entries(importResults.banners).map(([banner, count]) => (
                       <div key={banner} className="banner-result">
-                        <span>{banner}:</span>
-                        <span>{count as number} wishes</span>
+                        <span className='banner-name'>{banner}: </span>
+                        <span className='banner-stats'>{count as number} wishes</span>
                       </div>
                     ))}
                   </div>

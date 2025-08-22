@@ -1,0 +1,5 @@
+@import './auth/index.css';
+@import './add-game.css';
+@import './home.css';
+@import './my-games.css';
+@import './games/game-page.css';

@@ -1,5 +1,4 @@
-@import './components/games/shared/pagination.css';
-@import "tailwindcss";
+@import './App.css';
 
 :root {
   @apply min-h-screen;

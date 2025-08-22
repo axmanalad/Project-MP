@@ -1,0 +1,5 @@
+@import './games/shared/index.css';
+@import './game-card.css';
+@import './hero.css';
+@import './navbar.css';
+@import './stat-card.css';

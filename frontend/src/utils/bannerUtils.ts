@@ -4,12 +4,14 @@ import type { BannerFilterType, BannerNames, BannerTypeMapping } from "../types/
 export const bannerTypeMap: BannerTypeMapping = {
   CHARACTER: 'CHARACTER',
   WEAPON: 'WEAPON',
+  CHRONICLED: 'CHRONICLED',
   STANDARD: 'STANDARD'
 };
 
 export const bannerDisplayNames: BannerNames = {
   'CHARACTER': 'Character',
   'WEAPON': 'Weapon',
+  'CHRONICLED': 'Chronicled',
   'STANDARD': 'Standard',
   'ALL': 'All'
 };

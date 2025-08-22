@@ -38,8 +38,7 @@ async function main() {
         name: 'Character Event Wish',
         type: 'CHARACTER',
         gachaType: '301',
-        maxPity: 90,
-        softPity: 74
+        maxPity: 90
       }
     }),
     prisma.banner.create({
@@ -49,7 +48,15 @@ async function main() {
         type: 'WEAPON',
         gachaType: '302',
         maxPity: 80,
-        softPity: 65
+      }
+    }),
+    prisma.banner.create({
+      data: {
+        gameId: genshin.id,
+        name: 'Chronicled Wish',
+        type: 'CHRONICLED',
+        gachaType: '500',
+        maxPity: 90,
       }
     }),
     prisma.banner.create({
@@ -59,7 +66,6 @@ async function main() {
         type: 'STANDARD',
         gachaType: '200',
         maxPity: 90,
-        softPity: 74
       }
     })
   ]);

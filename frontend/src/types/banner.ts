@@ -1,4 +1,4 @@
-export type BannerFilterType = 'ALL' | 'CHARACTER' | 'WEAPON' | 'STANDARD';
+export type BannerFilterType = 'ALL' | 'CHARACTER' | 'WEAPON' | 'CHRONICLED' | 'STANDARD';
 
 export type BannerTypeMapping = Record<string, BannerFilterType>;
 

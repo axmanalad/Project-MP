@@ -9,6 +9,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
   const [step, setStep] = useState(1);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
   const [importing, setImporting] = useState(false);
+  const [isImportFailure, setIsImportFailure] = useState(false);
   const [importResults, setImportResults] = useState<any>(null);
 
   useEffect(() => {
@@ -28,13 +29,11 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
   };
 
   const gameInstructions = getGameInstructions(gameName);
-
   const handleImport = async () => {
     setImporting(true);
     try {
-      console.log('Starting to import wishes...');
       const response = await importWishes(gameName, userGameId, importUrl);
-      console.log('Wish import successful!');
+      setIsImportFailure((Object.values(response.data).slice(0, 3)).every(val => val === 0));
       setImportResults(response.data);
       setStep(4);
     } catch (err: any) {
@@ -186,11 +185,11 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
               </div>
             </div>
           )}
-
+        
           {step === 4 && importResults && (
             <div className="step-content">
-              <StepCard step="Import Complete!"
-                instruction="Your wish history has been successfully imported."
+              <StepCard step={isImportFailure ? "Import Failed." : "Import Complete!"}
+                instruction={isImportFailure ? "Your wish history did not import correctly." : "Your wish history has been successfully imported."}
               />
               
               <div className="import-results">

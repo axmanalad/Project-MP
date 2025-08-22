@@ -16,6 +16,12 @@ export const pityStats: PityStatsRecord = {
       guaranteed: false
     },
     {
+      gachaType: 'CHRONICLED',
+      current: 0,
+      max: 90,
+      guaranteed: false
+    },
+    {
       gachaType: 'STANDARD',
       current: 0,
       max: 90,

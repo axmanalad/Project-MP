@@ -51,19 +51,3 @@ export const getUserGameId = async (gameName: string) => {
   const response = await axios.get(`/api/games/${gameName}/user-game-id`);
   return response.data.success ? response.data.data.userGameId : null;
 }
-
-// TODO: Move to gameService.ts
-export const getGameIdByName = async (gameName: string) => {
-  const response = await axios.get(`/api/games/${gameName}/game-id-name`);
-  return response.data.success ? response.data.data.gameId : null;
-}
-
-export const getGameIdByUGID = async (userGameId: string) => {
-  const response = await axios.get(`/api/games/${userGameId}/game-id-ugid`);
-  return response.data.success ? response.data.data.gameId : null;
-}
-
-export const getBannerId = async (gameId: string, banner: string) => {
-  const response = await axios.get(`/api/games/${gameId}/${banner.toLowerCase()}`)
-  return response.data.success ? response.data.data.bannerId: null;
-}

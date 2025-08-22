@@ -3,7 +3,7 @@ import type { Game } from "../types";
 import { GameContext } from "./GameContext";
 import type { GameContextType } from "../types/game";
 import { useAuth } from "./AuthContext";
-import { getGameIdByName } from "../api/authService";
+import { getGameIdByName } from "../api/gameService";
 import { addGameToUser } from "../api/gameService";
 
 interface GameProviderProps {

@@ -24,8 +24,6 @@ jobs:
       run: cd frontend && npm ci
     - name: Install backend dependencies
       run: cd backend && npm ci
-    - name: Install shared dependencies
-      run: cd shared && npm ci
     - name: Build shared package
       run: cd shared && npm run build
     - name: Generate Prisma client

@@ -16,12 +16,16 @@
     "build:backend": "npm run build --workspace=backend",
     "start": "npm run start --workspace=backend",
     "test": "npm run test --workspace=frontend && npm run test --workspace=backend",
-    "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=backend"
+    "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=backend",
+    "lint": "npm run lint:frontend && npm run lint:backend",
+    "lint:frontend": "cd frontend && npm run lint",
+    "lint:backend": "cd backend && npm run lint"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",
     "@types/node": "^20.19.0 || >=22.12.0",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.2",
+    "eslint": "^9.34.0"
   },
   "engines": {
     "node": ">=18.0.0",

@@ -24,6 +24,8 @@ jobs:
       run: npm ci --workspace=frontend
     - name: Install backend dependencies
       run: npm ci --workspace=backend
+    - name: Generate Prisma client
+      run: cd backend && npx prisma generate
     - name: Type check frontend
       run: cd frontend && npx tsc --noEmit
     - name: Type check backend

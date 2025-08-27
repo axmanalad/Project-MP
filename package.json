@@ -18,9 +18,9 @@
     "start": "npm run start --workspace=backend",
     "test": "npm run test --workspace=frontend && npm run test --workspace=backend",
     "install:all": "npm install && npm install --workspace=frontend && npm install --workspace=backend",
-    "lint": "npm run lint:frontend && npm run lint:backend",
-    "lint:frontend": "cd frontend && npm run lint",
-    "lint:backend": "cd backend && npm run lint"
+    "lint": "eslint .",
+    "lint:frontend": "eslint frontend",
+    "lint:backend": "eslint backend"
   },
   "devDependencies": {
     "concurrently": "^8.2.0",

@@ -35,4 +35,46 @@ export default tseslint.config([
       },
     },
   },
+
+  {
+    files: ['frontend/**/*.{ts,tsx}'],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommendedTypeChecked,
+      ...tseslint.configs.strictTypeChecked,
+      ...tseslint.configs.stylisticTypeChecked,
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+      reactX.configs['recommended-typescript'],
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.browser,
+      },
+      parserOptions: {
+        project: ['./frontend/tsconfig.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
+  
+  {
+    files: ['backend/**/*.{ts,js}'],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.recommendedTypeChecked,
+    ],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: {
+        ...globals.node,
+      },
+      parserOptions: {
+        project: ['./backend/tsconfig.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
 ])

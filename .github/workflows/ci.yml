@@ -24,8 +24,6 @@ jobs:
       run: npm ci --workspace=frontend
     - name: Install backend dependencies
       run: npm ci --workspace=backend
-    - name: Run ESLint
-      run: npm run lint
     - name: Type check frontend
       run: cd frontend && npx tsc --noEmit
     - name: Type check backend

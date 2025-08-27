@@ -124,7 +124,7 @@ const WishStatistics: React.FC<WishStatsProps> = ({
         </div>
 
         <div className="wish-statistics-grid">
-          {statistics.map((stat, index) => (
+          {statistics.map((stat: any, index: number) => (
             <WishStatCard
               key={`${stat.label}-${index.toString()}`}
               label={stat.label}

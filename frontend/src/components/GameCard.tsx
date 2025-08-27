@@ -2,14 +2,13 @@ import "../styles/components/game-card.css";
 import type { GameCardProps } from "../types";
 import { convertDateWithoutTime } from "../utils/convertDate";
 import { useGameContext } from "../hooks/useGameContext";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useState } from "react";
 
 function GameCard({ game }: GameCardProps) {
   const { isMyGame, addToMyGames, removeFromMyGames, loading } = useGameContext();
   const [isProcessing, setIsProcessing] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const favorite = isMyGame(game.id);
 
   const isMyGames = location.pathname === '/my-games';

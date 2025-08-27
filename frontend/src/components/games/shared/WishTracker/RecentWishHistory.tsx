@@ -2,7 +2,6 @@ import type React from "react";
 import type { RecentWishHistoryProps } from "../../../../types";
 import WishItem from "./WishItem";
 import EmptyWishState from "./EmptyWishState";
-import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 
 const RecentWishHistory: React.FC<RecentWishHistoryProps> = ({ wishes, gameName, onViewAll, selectedBanner, onClearFilter, isFiltered = false }) => {
   const normalizedBannerName = selectedBanner ? selectedBanner.charAt(0) + selectedBanner.slice(1).toLowerCase() + " Banner" : "";

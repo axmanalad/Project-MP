@@ -10,5 +10,5 @@
     "skipLibCheck": true,
   },
   "include": ["src/**/*", "prisma/**/*"],
-  "exclude": ["node_modules", "frontend"]
+  "exclude": ["node_modules", "../frontend", "../frontend/**/*"]
 }

@@ -21,13 +21,21 @@ jobs:
     - name: Install dependencies
       run: npm ci
     - name: Install frontend dependencies
-      run: npm ci --workspace=frontend
+      run: cd frontend && npm ci
     - name: Install backend dependencies
-      run: npm ci --workspace=backend
-    - name: Install React as dev dependency for backend
-      run: cd backend && npm install --save-dev react @types/react
+      run: cd backend && npm ci
+    - name: Install shared dependencies
+      run: cd shared && npm ci
+    - name: Build shared package
+      run: cd shared && npm run build
     - name: Generate Prisma client
       run: cd backend && npx prisma generate
+    
+    - name: Create CSS declarations
+      run: |
+        cd frontend
+        echo "declare module '*.css' { const classes: { [key: string]: string }; export default classes; }" > src/types/css.d.ts
+    
     - name: Build frontend
       run: cd frontend && npm run build
     - name: Build backend

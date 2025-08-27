@@ -8,7 +8,6 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
   const [importUrl, setImportUrl] = useState('');
   const [step, setStep] = useState(1);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
-  const [importing, setImporting] = useState(false);
   const [isImportFailure, setIsImportFailure] = useState(false);
   const [importResults, setImportResults] = useState<any>(null);
 
@@ -30,7 +29,6 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
 
   const gameInstructions = getGameInstructions(gameName);
   const handleImport = async () => {
-    setImporting(true);
     try {
       const response = await importWishes(gameName, userGameId, importUrl);
       setIsImportFailure((Object.values(response.data).slice(0, 3)).every(val => val === 0));
@@ -38,8 +36,6 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
       setStep(4);
     } catch (err: any) {
       console.error('Import failed:', err);
-    } finally {
-      setImporting(false);
     }
   };
 

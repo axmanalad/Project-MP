@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { PityCounter, PrismaClient } from '@prisma';
+import { PrismaClient } from '@prisma';
 import { calculateWishStats } from '../utils/wishStatCalculation';
 import { DebugLog as log } from '../utils/debugLog';
-import { WishItem } from '../../../shared/types/wish';
-import { PityStatsRecord } from '../../../frontend/src/types';
+import { WishItem } from '@shared/types';
 
 const prisma = new PrismaClient();
 
@@ -161,7 +160,6 @@ export class GenshinService {
               await prisma.wish.create({
                 data: {
                   userGameId,
-                  bannerId: banner.id,
                   ...wish
                 }
               });

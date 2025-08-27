@@ -1,5 +1,5 @@
 import type React from "react";
-import type { WishItem } from "../../../../../../shared/types";
+import type { WishItem } from "@shared/types";
 import type { WishTrackerProps, WishView } from "../../../../types";
 import { useEffect, useState } from "react";
 import "../../../../styles/components/games/shared/WishTracker/index.css";
@@ -143,13 +143,11 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
           const normalizeBannerType = stat.gachaType.substring(0, 1) + stat.gachaType.substring(1).toLowerCase();
           return (
             <PityCard
-              userGameId={userGameId}
               key={`stat.${stat.gachaType.toLowerCase()}-${String(userGameId)}`}
               {...stat}
               gachaType={normalizeBannerType}
               onClick={() => { if (!isSelected) handlePityCardClickWrapper(bannerType); }}
               isSelected={isSelected}
-              isLoading={isSelected && filterLoading}
             />
           );
         })}

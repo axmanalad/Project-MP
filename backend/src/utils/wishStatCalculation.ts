@@ -1,6 +1,5 @@
-import type { WishStatLabels } from "../../../frontend/src/types";
-import type { WishItem } from "../../../shared/types";
-import { DebugLog as log } from "../utils/debugLog";
+import type { WishStatLabels } from "@shared/types";
+import type { WishItem } from "@shared/types";
 
 /**
  * Calculates all wish statistics based on the provided wishes.

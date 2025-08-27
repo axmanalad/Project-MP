@@ -1,5 +1,5 @@
 import type { BannerFilterType } from "./banner";
-import { WishItem } from "../../../shared/types";
+import type { WishItem } from "@shared/types";
 
 type gameName = string;
 
@@ -112,10 +112,8 @@ interface PityCounter {
 };
 
 export interface PityCardProps extends PityCounter {
-  userGameId: string;
   onClick?: () => void;
   isSelected?: boolean;
-  isLoading?: boolean;
 };
 
 export type PityStatsRecord = Record<gameName, PityCounter[]>;

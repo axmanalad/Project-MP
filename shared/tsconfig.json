@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "outDir": "dist",
+    "rootDir": ".",
+    "target": "es6",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "declaration": true, // Generate .d.ts files
+    "composite": true, // Enable project references
+    "skipLibCheck": true,
+    "strict": true
+  },
+  "include": ["types/**/*"]
+}

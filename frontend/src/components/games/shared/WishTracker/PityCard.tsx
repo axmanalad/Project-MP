@@ -4,14 +4,12 @@ import "../../../../styles/components/games/shared/WishTracker/pity-card.css";
 
 
 function PityCard({
-  userGameId,
   gachaType,
   current,
   max,
   guaranteed,
   onClick,
   isSelected = false,
-  isLoading = false
 }: PityCardProps) {
   return (
     <div 

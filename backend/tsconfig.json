@@ -3,12 +3,20 @@
     "baseUrl": ".",
     "paths": {
       "@prisma": ["./generated/prisma"],
+      "@shared/*": ["../shared/*"],
     },
     "moduleResolution": "node",
     "target": "es6",
+    "module": "commonjs",
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "outDir": "dist",
+    "rootDir": ".",
+    "sourceMap": true,
   },
   "include": ["src/**/*", "prisma/**/*"],
-  "exclude": ["node_modules", "../frontend", "../frontend/**/*"]
+  "exclude": ["node_modules", "../frontend", "../frontend/**/*", "dist"],
+  "references": [
+    { "path": "../shared" }
+  ],
 }

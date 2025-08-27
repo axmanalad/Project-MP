@@ -32,8 +32,10 @@ jobs:
       run: cd frontend && npx tsc --noEmit
     - name: Type check backend
       run: cd backend && npx tsc --noEmit --skipLibCheck
-    - name: Build project
-      run: npm run build
+    - name: Build frontend
+      run: cd frontend && npm run build
+    - name: Build backend
+      run: cd backend && npm run build
 
   security-audit:
     name: Security Audit

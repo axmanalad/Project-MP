@@ -7,6 +7,7 @@
   - [Visual Studio Code](https://code.visualstudio.com/) (*Recommended*)
   - [JetBrains Webstorm](https://www.jetbrains.com/webstorm/)
 - The [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension
+- [PostgreSQL 17](https://www.postgresql.org/download/)
 
 #### Optional Extensions
 There are useful extensions in Visual Studio Code that are very useful for development and effectively make your coding efficiency faster.
@@ -20,6 +21,38 @@ There are useful extensions in Visual Studio Code that are very useful for devel
 2. In the project directory, install the packages.
     ```bash
     npm install
+    ```
+
+#### Setting up Database
+To set up the PostgreSQL database locally, you will need to configure your PG Admin 4 first. Afterwards, create a database for MaiPon and set up the environment variables with the following:
+
+In frontend directory:
+- `REACT_APP_API_URL`: The link to the hosted backend (i.e. `http://localhost:3000`)
+
+In backend directory:
+- `FRONTEND_URL`: The link to hosting the frontend (i.e. `http://localhost:5173`)
+- `PORT`: The port to the backend (i.e. `3000`)
+- `DATABASE_URL`: The link to connect to your local SQL database
+``` 
+Format: "postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
+```
+
+#### Backend Setup with Prisma
+MaiPon uses Prisma ORM to utilize relational models easier as objects instead of entering SQL queries. The following steps will setup your local database by using the schema and seed provided.
+
+1. Generate the Prisma Client.
+    ```bash
+    npx prisma generate
+    ```
+2. Load the seed into your database. This will inject all tables and example data.
+**IMPORTANT NOTE: You do not need to run this command after the first time.**
+    ```bash
+    npx prisma db seed
+    ```
+    
+3.  If you update the Prisma Schema, you may need to push the changes to your local database.
+    ```bash
+    npx prisma db push
     ```
 
 ### Running the Project

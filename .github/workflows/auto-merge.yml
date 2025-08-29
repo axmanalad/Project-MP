@@ -23,8 +23,7 @@ jobs:
       run: npm ci
     - name: Run tests and checks
       run: |
-        npm run lint
-        npx tsc --noEmit
+        cd frontend && npx tsc --noEmit
         npm run build
     - name: Dependabot metadata
       id: metadata

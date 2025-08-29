@@ -1,6 +1,6 @@
-## Code Contributions
+# Code Contributions
 
-### Prerequisites
+## Prerequisites
 
 - The latest version of [Node.js](https://nodejs.org/en) >= 22.0.0
 - Either one of the following IDEs
@@ -9,21 +9,21 @@
 - The [ESLint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint) extension
 - [PostgreSQL 17](https://www.postgresql.org/download/)
 
-#### Optional Extensions
+### Optional Extensions
 There are useful extensions in Visual Studio Code that are very useful for development and effectively make your coding efficiency faster.
 - [Prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode): Code formats a consistent style.
 - [Material Icon Theme](https://marketplace.visualstudio.com/items?itemName=PKief.material-icon-theme): Revamps icons for different directories/files
 - [JavaScript (ES6)](https://marketplace.visualstudio.com/items?itemName=xabikos.JavaScriptSnippets): Provides code snippets for JS
 - [GitLens](https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens): Visualize authors and annotations from GitHub
 
-### Installations
+## Installations
 1. Clone the repository. (Optional: Fork the repository)
 2. In the project directory, install the packages.
     ```bash
     npm install
     ```
 
-#### Setting up Database
+### Setting up Database
 To set up the PostgreSQL database locally, you will need to configure your PG Admin 4 first. Afterwards, create a database for MaiPon and set up the environment variables with the following:
 
 In frontend directory:
@@ -37,7 +37,7 @@ In backend directory:
 Format: "postgresql://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}?schema=public"
 ```
 
-#### Backend Setup with Prisma
+### Backend Setup with Prisma
 MaiPon uses Prisma ORM to utilize relational models easier as objects instead of entering SQL queries. The following steps will setup your local database by using the schema and seed provided.
 
 1. Generate the Prisma Client.
@@ -56,7 +56,7 @@ MaiPon uses Prisma ORM to utilize relational models easier as objects instead of
     npx prisma db push
     ```
 
-### Running the Project
+## Running the Project
 1. Activate a local server for the website.
     ```bash
     npm run dev
@@ -69,10 +69,10 @@ MaiPon uses Prisma ORM to utilize relational models easier as objects instead of
     ```
 3. To stop the server, enter `q` or `CTRL-C`.
 
-### MaiPon Project Details
+## MaiPon Project Details
 The following details are utilized/currently planned tech stack and deployment for this project:
 
-#### Tech Stack
+### Tech Stack
 - TypeScript - Core Language
 - React - Frontend
 - Node.js/Express - Backend
@@ -80,7 +80,7 @@ The following details are utilized/currently planned tech stack and deployment f
 - Prisma - Database Framework
 - Git Actions - CI/CD Pipeline
 
-#### Deployment
+### Deployment
 - Cloudflare Pages - Frontend
 - Render - Backend
 - Supabase - Database

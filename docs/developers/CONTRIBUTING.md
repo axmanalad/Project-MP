@@ -45,10 +45,11 @@ MaiPon uses Prisma ORM to utilize relational models easier as objects instead of
     npx prisma generate
     ```
 2. Load the seed into your database. This will inject all tables and example data.
-**IMPORTANT NOTE: You do not need to run this command after the first time.**
     ```bash
     npx prisma db seed
     ```
+
+**IMPORTANT NOTE: You do not need to run this command after the first time.**
     
 3.  If you update the Prisma Schema, you may need to push the changes to your local database.
     ```bash

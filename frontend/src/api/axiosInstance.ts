@@ -2,7 +2,7 @@ import axios from 'axios';
 import { getToken } from './authService';
 
 const instance = axios.create({
-  baseURL: (import.meta as any).env.REACT_APP_API_URL || 'http://localhost:3000',
+  baseURL: import.meta.env.REACT_APP_API_URL as string || 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
   }

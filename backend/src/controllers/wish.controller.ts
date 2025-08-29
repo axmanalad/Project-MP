@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
 import { GenshinService } from "../services/genshin.service";
+import { PityCounters, WishItem, WishStats } from "../../../shared/types";
 
 export const importWishes = async (req: Request, res: Response) => {
   try {
-    const { importUrl } = req.body;
+    const { importUrl } = req.body as { importUrl: string };
     const { userGameId } = req.params;
 
     if (!userGameId || !importUrl) {
@@ -20,7 +21,7 @@ export const importWishes = async (req: Request, res: Response) => {
       });
     }
 
-    let results: any;
+    let results: { imported: number; skipped: number; failed: number; banners: Record<string, number> };
     if (req.baseUrl.includes('genshin-impact')) {
       results = await GenshinService.importWishes(userGameId, importUrl);
     } else {
@@ -39,7 +40,7 @@ export const importWishes = async (req: Request, res: Response) => {
     console.error('Import error:', err);
     res.status(500).json({
       success: false,
-      message: err.message || 'Failed to import wishes'
+      message: err instanceof Error ? err.message : 'Failed to import wishes'
     });
   }
 };
@@ -48,7 +49,7 @@ export const getUserWishes = async (req: Request, res: Response) => {
   try {
     const { userGameId } = req.params;
 
-    let wishes: any;
+    let wishes: WishItem[];
     if (req.baseUrl.includes('genshin-impact')){
       wishes = await GenshinService.getUserWishes(userGameId);
     } else {
@@ -65,7 +66,7 @@ export const getUserWishes = async (req: Request, res: Response) => {
     console.error('Error fetching user wishes:', err);
     res.status(500).json({
       success: false,
-      message: err.message || 'Failed to fetch user wishes'
+      message: err instanceof Error ? err.message : 'Failed to fetch user wishes'
     });
   }
 };
@@ -74,7 +75,7 @@ export const getUserWishStats = async (req: Request, res: Response) => {
   try {
     const { userGameId } = req.params;
     const { bannerId } = req.query as { bannerId?: string };
-    let stats: any;
+    let stats: WishStats;
     if (bannerId) {
       if (req.baseUrl.includes('genshin-impact')) {
         stats = await GenshinService.getUserWishStats(userGameId, bannerId);
@@ -102,7 +103,7 @@ export const getUserWishStats = async (req: Request, res: Response) => {
     console.error('Error fetching user wish stats:', err);
     res.status(500).json({
       success: false,
-      message: err.message || 'Failed to fetch user wish stats'
+      message: err instanceof Error ? err.message : 'Failed to fetch user wish stats'
     });
   }
 }
@@ -110,7 +111,7 @@ export const getUserWishStats = async (req: Request, res: Response) => {
 export const getUserPityStats = async (req: Request, res: Response) => {
   try {
     const { userGameId } = req.params;
-    let pityStats: any;
+    let pityStats: PityCounters[];
     if (req.baseUrl.includes('genshin-impact')) {
       pityStats = await GenshinService.getUserPityCounters(userGameId);
     } else {
@@ -126,7 +127,7 @@ export const getUserPityStats = async (req: Request, res: Response) => {
   } catch (err) {
     res.status(500).json({
       success: false,
-      message: err.message || 'Failed to fetch pity stats'
+      message: err instanceof Error ? err.message : 'Failed to fetch pity stats'
     });
   }
 }

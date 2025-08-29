@@ -1,5 +1,6 @@
-import React, { ReactNode, useEffect, useRef, useState } from "react";
-import { DropdownProps } from "../types";
+import React, { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
+import type { DropdownProps } from "../types";
 
 const Dropdown: React.FC<DropdownProps> = ({ trigger, children, className = '' }) => {
   const [isOpen, setIsOpen] = useState(false);

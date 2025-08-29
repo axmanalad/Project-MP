@@ -251,6 +251,7 @@ export const wishBannerTypes: WishBannerRecord = {
     '301': 'Character',
     '400': 'Character',
     '302': 'Weapon',
+    '500': 'Chronicled',
     '200': 'Standard'
   },
   // Needs verification

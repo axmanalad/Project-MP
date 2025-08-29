@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 const JWT_SECRET = process.env.JWT_SECRET || 'your_jwt_secret';
@@ -35,7 +35,7 @@ export class AuthService {
   static validateToken(token: string) {
     try {
       return jwt.verify(token, JWT_SECRET) as { userId: string };
-    } catch (error) {
+    } catch {
       return null;
     }
   }

@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { PityCounter, PrismaClient } from '@prisma';
+import { PrismaClient } from '@prisma';
 import { calculateWishStats } from '../utils/wishStatCalculation';
 import { DebugLog as log } from '../utils/debugLog';
 import { WishItem } from '../../../shared/types/wish';
-import { PityStatsRecord } from '../../../frontend/src/types';
 
 const prisma = new PrismaClient();
 
@@ -214,7 +213,7 @@ export class GenshinService {
   private static async fetchWishPage(url: string, gachaType: string, page: number = 1, endId: string = '0') {
     // Adds game_biz depending on the region to the end of url.
     // If sg, use global, otherwise the default is cn.
-    let preApiUrl;
+    let preApiUrl: string;
     if (url.includes('hk4e-sg')) {
       preApiUrl = url + 'hk4e_global';
     } else {
@@ -248,11 +247,11 @@ export class GenshinService {
     }
 
     switch (bannerType) {
-      case 'CHARACTER':
+      case 'CHARACTER': {
         const standardCharacters = ['Dehya', 'Diluc', 'Jean', 'Keqing', 'Mona', 'Qiqi', 'Tighnari', 'Yumemizuki Mizuki'];
         return !standardCharacters.includes(wish.name);
-      
-      case 'WEAPON':
+      }
+      case 'WEAPON': {
         const standardWeapons = [
           'Aquila Favonia',
           'Primordial Jade Winged-Spear',
@@ -266,7 +265,7 @@ export class GenshinService {
           'Skyward Spine'
         ];
         return !standardWeapons.includes(wish.name);
-      
+      }
       default:
         return null;
     }
@@ -406,7 +405,7 @@ export class GenshinService {
         } else {
           // Determine if the current wish is guaranteed based on the last five star wish
           // Note: Guarantees do not apply to standard banners
-          guaranteed = !lastFiveStar.isWin && standardItems.includes(lastFiveStar.name) && banner.type !== 'STANDARD';
+          guaranteed = lastFiveStar.isWin === false && standardItems.includes(lastFiveStar.name) && banner.type !== 'STANDARD';
         }
         await prisma.wish.update({
           where: { id: wish.id },

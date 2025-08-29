@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import type { GenshinDashboardProps } from "../../../types";
 import TabNavigation from "../shared/TabNavigation";
 import WishTracker from "../shared/WishTracker";
-import { useAuth } from "../../../contexts/AuthContext";
+import { useAuth } from "../../../hooks/useAuthContext";
 import { getUserGameId } from "../../../api/authService";
 
 const GenshinDashboard: React.FC<GenshinDashboardProps> = ({ game }) => {
@@ -23,7 +23,9 @@ const GenshinDashboard: React.FC<GenshinDashboardProps> = ({ game }) => {
       try {
         setLoading(true);
         const id = await getUserGameId(game.name);
-        setUserGameId(id);
+        if (id) {
+          setUserGameId(id);
+        }
       } catch (err) {
         console.error('Error fetching user game ID:', err);
       } finally {
@@ -31,7 +33,7 @@ const GenshinDashboard: React.FC<GenshinDashboardProps> = ({ game }) => {
       }
     };
 
-    fetchUserGameId();
+    void fetchUserGameId();
   }, [user, game.name]);
 
   const tabs = [

@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = req.body as { email: string; password: string };
     const result = await AuthService.login(email, password);
     
     if (!result) {
@@ -27,14 +27,14 @@ export const login = async (req: Request, res: Response) => {
         token: result.token
       }
     });
-  } catch (error) {
+  } catch {
     return res.status(500).json({ success: false, message: 'Internal server error' });
   }
 };
 
 export const register = async (req: Request, res: Response) => {
   try {
-    const { email, username, password } = req.body;
+    const { email, username, password } = req.body as { email: string; username: string; password: string };
     const result = await AuthService.register(email, username, password);
 
     if (!result) {

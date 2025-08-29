@@ -4,7 +4,7 @@ import AuthForm from '../../components/auth/AuthForm';
 import '../../styles/pages/auth/login.css';
 import { type ValidationError, type AuthFormField, type BaseAuthFormData } from '../../types/auth';
 import { validateLoginForm } from '../../utils/auth/validation';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuthContext';
 
 const LoginPage: React.FC = () => {
   const { login } = useAuth();
@@ -16,7 +16,8 @@ const LoginPage: React.FC = () => {
   const [errors, setErrors] = useState<ValidationError[]>([]);
   const navigate = useNavigate();
   const location = useLocation();
-  const from = location.state?.from || '/my-games';
+  const state = location.state as { from?: string } | null;
+  const from: string = state?.from || '/my-games';
 
   const loginFields: AuthFormField[] = [
     {
@@ -45,7 +46,7 @@ const LoginPage: React.FC = () => {
       try {
         const response = await login(formData.email, formData.password);
         if (response.success) {
-          navigate(from);
+          void navigate(from);
         } else {
           if (response.message?.includes('Email')) {
             setErrors([{ field: 'email', message: `${response.message} Please register first.` }]);
@@ -80,7 +81,7 @@ const LoginPage: React.FC = () => {
         <AuthForm<BaseAuthFormData>
           formData={formData}
           handleChange={handleChange}
-          handleSubmit={handleSubmit}
+          handleSubmit={(e) => { void handleSubmit(e); }}
           submitButtonText="Login"
           fields={loginFields}
           errors={errors}

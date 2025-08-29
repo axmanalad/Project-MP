@@ -2,11 +2,10 @@ import "../styles/pages/my-games.css";
 import { useGameContext } from "../hooks/useGameContext";
 import { centerGrid } from "../utils/centerGrid";
 import GameCard from "../components/GameCard";
-import { gameQuickStats, quickStats } from "../data/quickStats";
+import { quickStats } from "../data/quickStats";
 import StatCard from "../components/StatCard";
 import { Link } from "react-router";
 import { useMemo } from "react";
-import { pityStats } from "../data/wishStats";
 
 function MyGames() {
   const { myGames } = useGameContext();
@@ -19,24 +18,6 @@ function MyGames() {
       return stat;
     });
   }, [myGames.length]);
-
-  const getDynamicGameStats = (gameName: string) => {
-    const gamePityData = pityStats[gameName];
-    const characterBanner = gamePityData.find(banner => banner.gachaType === 'CHARACTER');
-
-    return gameQuickStats.map((stat) => {
-      if (stat.title === "Character Pity") {
-        return {
-          ...stat,
-          value: characterBanner ? characterBanner.current : 0
-        };
-      }
-      if (stat.title === "Energy") {
-        return { ...stat, value: stat.value };
-      }
-      return stat;
-    });
-  };
 
   if (myGames.length > 0) {
     return (

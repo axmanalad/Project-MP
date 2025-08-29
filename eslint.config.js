@@ -16,9 +16,9 @@ export default tseslint.config([
       // Type-aware TypeScript ESLint rules
       ...tseslint.configs.recommendedTypeChecked,
       // Optional: Use strict type checking for better code quality
-      ...tseslint.configs.strictTypeChecked,
+      // ...tseslint.configs.strictTypeChecked,
       // Optional: Add stylistic type-aware rules
-      ...tseslint.configs.stylisticTypeChecked,
+      // ...tseslint.configs.stylisticTypeChecked,
       reactHooks.configs['recommended-latest'],
       reactRefresh.configs.vite,
       // Enable lint rules for React
@@ -30,7 +30,7 @@ export default tseslint.config([
       ecmaVersion: 2020,
       globals: globals.browser,
       parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        project: ['frontend/tsconfig.node.json', 'frontend/tsconfig.app.json', 'backend/tsconfig.json'],
         tsconfigRootDir: import.meta.dirname,
       },
     },

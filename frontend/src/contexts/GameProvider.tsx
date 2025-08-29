@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback, useMemo, useRef } from "react";
 import type { Game } from "../types";
 import { GameContext } from "./GameContext";
 import type { GameContextType } from "../types/game";
-import { useAuth } from "./AuthContext";
+import { useAuth } from "../hooks/useAuthContext";
 import { getGameIdByName } from "../api/gameService";
 import { addGameToUser } from "../api/gameService";
 
@@ -45,6 +45,9 @@ export const GameProvider = ({ children }: GameProviderProps) => {
       setLoading(true);
       if (isAuthenticated && user) {
         const gameId = await getGameIdByName(game.name);
+        if (!gameId) {
+          throw new Error("Game ID not found");
+        }
         await addGameToUser(user.id, gameId);
       }
     } catch (err) {

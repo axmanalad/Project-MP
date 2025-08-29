@@ -3,17 +3,18 @@ import type { WishItemProps } from "../../../../types";
 import { convertDate } from "../../../../utils/convertDate";
 import { getBannerDisplayName } from "../../../../utils/bannerUtils";
 import "../../../../styles/components/games/shared/WishTracker/wish-items.css";
+import type { ReactNode } from "react";
 
 
 const WishItem: React.FC<WishItemProps> = ({ wish, compact = false, gameName }) => {
-  const getWLGuaranteeClass = (isWin: boolean, isGuarantee: boolean) => {
+  const getWLGuaranteeClass = (isWin: boolean, isGuarantee: boolean): [string, ReactNode] => {
     if (wish.rarity === '5' && getBannerDisplayName(wish.gachaType, gameName) !== 'Standard') {
       if (isGuarantee) {
         return ['wlg-guaranteed', <span key="guaranteed">Guaranteed</span>];
       }
       return isWin ? ['wlg-win', <span key="win">Win</span>] : ['wlg-loss', <span key="loss">Loss</span>];
     }
-    return ['', ''];
+    return ['', null];
   }
 
   const [wlClass, wlText] = getWLGuaranteeClass(wish.isWin ?? false, wish.isGuaranteed ?? false);

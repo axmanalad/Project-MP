@@ -1,11 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { AuthService } from "src/services/auth.service";
 
-declare global {
-  namespace Express {
-    interface Request {
-      user: { id: string };
-    }
+declare module "express-serve-static-core" {
+  interface Request {
+    user?: { id: string };
   }
 }
 

@@ -19,7 +19,7 @@ export default defineConfig({
             // Check if this is a PowerShell request or browser
             const userAgent = req.headers['user-agent'] || '';
             // Parse query string from URL
-            const urlObj = new URL(req.url!, `http://${req.headers.host}`);
+            const urlObj = new URL(req.url, `http://${req.headers.host}`);
             const isPowerShell = userAgent.includes('PowerShell') || 
                                  req.headers['accept'] === '*/*' ||
                                  urlObj.searchParams.get('raw') === 'true';

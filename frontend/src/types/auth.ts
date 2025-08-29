@@ -33,3 +33,18 @@ export interface AuthFormProps<T = AuthFormData> {
   fields: AuthFormField[];
   errors?: ValidationError[];
 }
+
+export type User = {
+  id: string;
+  email: string;
+  username: string;
+};
+
+export type AuthContextType = {
+  user: User | null;
+  loading: boolean;
+  login: (email: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  register: (email: string, username: string, password: string) => Promise<{ success: boolean; message?: string }>;
+  logout: () => void;
+  isAuthenticated: boolean;
+};

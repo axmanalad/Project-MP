@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { GameService } from "../services/game.service";
-import { DebugLog as log } from "src/utils/debugLog";
 
 export const getUserGameId = async (req: Request, res: Response) => {
   try {
@@ -117,7 +116,11 @@ export const getUserGames = async (req: Request, res: Response) => {
 export const addGameToUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
-    const { gameId } = req.body;
+    const { gameId } = req.body as { gameId: string };
+
+    if (typeof gameId !== "string") {
+      return res.status(400).json({ success: false, message: "Game ID must be a string" });
+    }
 
     if (req.user.id !== userId) {
       return res.status(403).json({ success: false, message: "Access denied" });

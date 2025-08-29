@@ -43,9 +43,9 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
       }
     }
 
-    fetchWishes();
-    fetchPityStats();
-  }, [userGameId]);
+    void fetchWishes();
+    void fetchPityStats();
+  }, [userGameId, gameName]);
 
   const [currentView, setCurrentView] = useState<WishView>('recent');
 
@@ -64,7 +64,9 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
   const handleBannerId = async (userGameId: string, selectedBanner: string) => {
     try {
       const gameId = await getGameIdByUGID(userGameId);
+      if (!gameId) return null;
       const id = await getBannerId(gameId, selectedBanner);
+      if (!id) return null;
       setBannerId(id);
       return id;
     } catch (err) {
@@ -78,7 +80,7 @@ const WishTracker: React.FC<WishTrackerProps> = ({ gameName, userGameId }) => {
     
     // If it's not ALL, fetch the banner ID
     if (banner !== 'ALL') {
-      handleBannerId(userGameId, banner);
+      void handleBannerId(userGameId, banner);
     }
   };
 

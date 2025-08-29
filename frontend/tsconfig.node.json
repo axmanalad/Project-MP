@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "tsBuildInfoFile": "frontend/node_modules/.tmp/tsconfig.node.tsbuildinfo",
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "ES2023",
     "lib": ["ES2023"],
     "module": "ESNext",
@@ -23,5 +23,5 @@
 
     "composite": true
   },
-  "include": ["frontend/vite.config.ts"]
+  "include": ["./vite.config.ts"]
 }

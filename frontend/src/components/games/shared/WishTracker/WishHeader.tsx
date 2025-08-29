@@ -53,11 +53,11 @@ const WishHeader: React.FC<WishHeaderProps> = ({
         isOpen={showImportModal}
         onClose={() => {
           setShowImportModal(false)
-          onRefreshWishes();
+          void onRefreshWishes();
         }}
         userGameId={userGameId}
         gameName={gameName}
-        onImportSuccess={onRefreshWishes}
+        onImportSuccess={() => { void onRefreshWishes(); }}
       />
     </>
   );

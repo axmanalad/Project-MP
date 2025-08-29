@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import "../styles/components/navbar.css";
-import { useAuth } from "../contexts/AuthContext";
+import { useAuth } from "../hooks/useAuthContext";
 import Dropdown, { DropdownDivider, DropdownItem } from "./Dropdown";
 
 function Navbar() {

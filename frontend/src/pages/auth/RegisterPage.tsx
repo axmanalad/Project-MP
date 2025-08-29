@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import AuthForm from '../../components/auth/AuthForm';
 import type { AuthFormField, RegisterFormData, ValidationError } from '../../types/auth';
 import { validateRegisterForm } from '../../utils/auth/validation';
-import { useAuth } from '../../contexts/AuthContext';
+import { useAuth } from '../../hooks/useAuthContext';
 
 const RegisterPage: React.FC = () => {
   const { register } = useAuth();
@@ -61,7 +61,7 @@ const RegisterPage: React.FC = () => {
       try {
         const response = await register(formData.email, formData.username, formData.password);
         if (response.success) {
-          navigate('/my-games');
+          void navigate('/my-games');
         } else {
           if (response.message) {
             setErrors([{ field: 'email', message: `${response.message} Please use another email.` }]);
@@ -92,7 +92,7 @@ const RegisterPage: React.FC = () => {
         <AuthForm<RegisterFormData>
           formData={formData}
           handleChange={handleChange}
-          handleSubmit={handleSubmit}
+          handleSubmit={(e) => { void handleSubmit(e); }}
           submitButtonText="Register"
           fields={registerFields}
           errors={errors}

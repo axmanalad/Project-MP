@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { wishImportData } from '../../../../data/wishStats';
-import type { WishImportInstructionsProps } from '../../../../types';
+import type { WishImportInstructionsProps, WishImportResults } from '../../../../types';
 import StepCard from '../StepCard';
 import { importWishes } from '../../../../api/wishService';
 
@@ -8,9 +8,9 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
   const [importUrl, setImportUrl] = useState('');
   const [step, setStep] = useState(1);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'copied'>('idle');
-  const [importing, setImporting] = useState(false);
   const [isImportFailure, setIsImportFailure] = useState(false);
-  const [importResults, setImportResults] = useState<any>(null);
+
+  const [importResults, setImportResults] = useState<WishImportResults | null>(null);
 
   useEffect(() => {
     if (isOpen) {
@@ -30,16 +30,13 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
 
   const gameInstructions = getGameInstructions(gameName);
   const handleImport = async () => {
-    setImporting(true);
     try {
       const response = await importWishes(gameName, userGameId, importUrl);
       setIsImportFailure((Object.values(response.data).slice(0, 3)).every(val => val === 0));
       setImportResults(response.data);
       setStep(4);
-    } catch (err: any) {
+    } catch (err) {
       console.error('Import failed:', err);
-    } finally {
-      setImporting(false);
     }
   };
 
@@ -176,7 +173,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
                 </button>
                 <button 
                   type="button"
-                  onClick={handleImport}
+                  onClick={() => { void handleImport(); }}
                   disabled={!importUrl.trim()}
                   className="btn step-btn"
                 >
@@ -215,7 +212,7 @@ const WishImportModal: React.FC<WishImportInstructionsProps> = ({ isOpen, onClos
                     {Object.entries(importResults.banners).map(([banner, count]) => (
                       <div key={banner} className="banner-result">
                         <span className='banner-name'>{banner}: </span>
-                        <span className='banner-stats'>{count as number} wishes</span>
+                        <span className='banner-stats'>{count} wishes</span>
                       </div>
                     ))}
                   </div>

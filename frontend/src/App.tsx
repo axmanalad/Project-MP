@@ -8,7 +8,7 @@ import GamePage from './pages/games/GamePage';
 import Navbar from './components/Navbar';
 import { GameProvider } from './contexts/GameProvider';
 import AddGame from './pages/AddGame';
-import { AuthProvider } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthProvider';
 import ProtectedRoute from './components/ProtectedRoute';
 import AuthRedirect from './components/AuthRedirect';
 

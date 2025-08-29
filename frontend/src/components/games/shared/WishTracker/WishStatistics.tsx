@@ -1,5 +1,5 @@
 import type React from "react";
-import type { WishStatsProps } from "../../../../types";
+import type { WishStatsData, WishStatsProps } from "../../../../types";
 import { useState, useEffect } from "react";
 import { wishCostData, wishStats } from "../../../../data/wishStats";
 import WishStatCard from "./WishStatCard";
@@ -16,7 +16,7 @@ const WishStatistics: React.FC<WishStatsProps> = ({
   isLoading: externalLoading = false
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [statistics, setStatistics] = useState<any>(null);
+  const [statistics, setStatistics] = useState<WishStatsData[]>();
 
   useEffect(() => {
     
@@ -28,7 +28,7 @@ const WishStatistics: React.FC<WishStatsProps> = ({
     
     const fetchStats = async () => {
       if (wishes.length === 0) {
-        setStatistics(null);
+        setStatistics([]);
         setIsLoading(false);
         return;
       }
@@ -41,7 +41,7 @@ const WishStatistics: React.FC<WishStatsProps> = ({
 
       try {
         setIsLoading(true);
-        let response: any;
+        let response;
         // TODO: Update API to accept all wish stats in one call instead of making redundant calls per banner
         if (isFiltered && bannerId) {
           response = await getUserBannerStats(gameName, gameId, bannerId);
@@ -86,14 +86,14 @@ const WishStatistics: React.FC<WishStatsProps> = ({
         setStatistics(currentStatsData);
       } catch (error) {
         console.error('Error fetching wish statistics:', error);
-        setStatistics(null);
+        setStatistics([]);
       } finally {
         setIsLoading(false);
       }
     };
 
-    fetchStats();
-  }, [gameId, bannerId, wishes, selectedBanner, isFiltered, externalLoading]);
+    void fetchStats();
+  }, [gameId, gameName, bannerId, wishes, selectedBanner, isFiltered, externalLoading]);
 
   if (!isLoading) {
     if (!statistics) {

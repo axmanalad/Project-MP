@@ -21,7 +21,7 @@
   "devDependencies": {
     "concurrently": "^9.2.1",
     "@types/node": "^24.6.1",
-    "typescript": "~5.9.2"
+    "typescript": "~5.9.3"
   },
   "engines": {
     "node": ">=18.0.0",

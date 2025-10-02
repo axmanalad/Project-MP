@@ -1,4 +1,4 @@
-# MaiPon
+# Project MP
 *Home of a large gacha manager website/app in development.*
 
 The website is planning to feature cross-game compatibility in managing different gacha games in one profile. Planned features include:
